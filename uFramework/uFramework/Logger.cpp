@@ -4,7 +4,12 @@ using namespace uFramework;
 
 void Logger::FileNotFound(std::string Pathname)
 {
-	std::cout << "File not found : " + Pathname << std::endl;
+	std::cout << "File not found : " << Pathname << std::endl;
+}
+
+void Logger::IndexNotFound(std::string ListName, std::string Index)
+{
+	std::cout << "Index : \"" << Index << "\" not found on list \"" << ListName << "\"" << std::endl;
 }
 
 void Logger::IndexAlreadyExists(std::string ClassName, std::string Index)

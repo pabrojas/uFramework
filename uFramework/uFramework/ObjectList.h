@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Object.h"
+#include "Point.h"
 
 #include <unordered_map>
 
@@ -20,7 +21,9 @@ namespace uFramework
 		ObjectIterator Begin();
 		ObjectIterator End();
 
-		bool AddObject(std::string ObjectIndex, float X, float Y, std::string SpriteIndex);
+		bool AddObject(std::string Index, float X, float Y, std::string SpriteIndex);
+		Point* GetOrigin(std::string Index);
+		bool SetOrigin(std::string Index, float X, float Y);
 		
 	};
 

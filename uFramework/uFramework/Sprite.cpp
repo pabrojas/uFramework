@@ -5,6 +5,8 @@
 uFramework::Sprite::Sprite(int FPS)
 {
 	this->FPS = FPS;
+	this->CurrentIndex = 0;
+	this->LastTick = sf::seconds(0.0f);
 }
 
 
@@ -48,5 +50,18 @@ sf::Sprite* uFramework::Sprite::GetCurrent()
 		return nullptr;
 	}
 
-	return this->Sprites.at(0);
+	return this->Sprites.at(this->CurrentIndex);
+}
+
+void uFramework::Sprite::Tick(sf::Time Time)
+{
+	if (Time - this->LastTick > sf::milliseconds(1000/FPS))
+	{
+		this->LastTick = Time;
+		int Size = this->Sprites.size();
+		if (Size > 0)
+		{
+			this->CurrentIndex = (this->CurrentIndex + 1) % Size;
+		}
+	}
 }

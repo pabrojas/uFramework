@@ -11,6 +11,8 @@ namespace uFramework
 
 	private:
 		//Fields
+		sf::Time LastTick;
+		int CurrentIndex;
 		int FPS;
 		std::vector<sf::Sprite*> Sprites;
 
@@ -25,7 +27,7 @@ namespace uFramework
 		//Methods
 		bool AddFrame(std::string Pathname);
 		sf::Sprite* GetCurrent();
-
+		void Tick(sf::Time Time);
 
 	};
 }

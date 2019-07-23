@@ -1,8 +1,11 @@
 
 #include "EngineWindow.h"
+#include "Point.h"
 #include "Logger.h"
 
 #include <iostream>
+
+#include <Windows.h>
 
 #include <SFML/Graphics.hpp>
 
@@ -11,7 +14,7 @@ int main()
 	
 	uFramework::EngineWindow Window;
 
-	Window.CreateSprite("Index1", 10);
+	Window.CreateSprite("Index1", 5);
 	Window.AddFrameToSprite("Index1", "C:\\Users\\Pablo Rojas\\Desktop\\sokoban\\PNG\\Default size\\Blocks\\block_01.png");
 	Window.AddFrameToSprite("Index1", "C:\\Users\\Pablo Rojas\\Desktop\\sokoban\\PNG\\Default size\\Blocks\\block_02.png");
 
@@ -20,11 +23,23 @@ int main()
 	Window.AddObject("Objeto2", -150, -50, "Index1");
 	
 
-	Window.Show();
+	Window.launch();
 
 	while (1)
 	{
+		if (Window.IsGamepadConnected(0))
+		{
+			uFramework::Point* Origin = Window.GetObjectOrigin("Objeto1");
+			if (Origin != nullptr)
+			{
+				Window.SetObjectOrigin("Objeto1", 
+					Origin->X - Window.GetGamepadAxisValue(0, 0) / 20, 
+					Origin->Y - Window.GetGamepadAxisValue(0, 1) / 20 );
+			}
 
+		}
+
+		Sleep(16);
 	}
 
 
