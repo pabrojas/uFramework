@@ -1,27 +1,30 @@
 #pragma once
 
-#include "SpriteList.h"
-#include "ObjectList.h"
-#include "Point.h"
-
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <vector>
 #include <unordered_map>
 
+#include "Enums.h"
+
 namespace uFramework
 {
+	class ObjectPool;
+	class Object;
+	class Point;
+
 	class EngineWindow : public sf::Thread
 	{
 	private:
 
 		//Fields
-		sf::Mutex ResourcesMutex;
-		SpriteList Sprites;
-		ObjectList Objects;
+		sf::Mutex resourcesMutex;
+		ObjectPool* objects;
+		int lastUsedIndex;
+
 
 		//Methods
-		void PrivateShow();
+		void privateShow();
 
 
 
@@ -31,18 +34,32 @@ namespace uFramework
 		EngineWindow();
 
 		//Sprite Methods
-		bool CreateSprite(std::string SpriteIndex, int FPS);
-		bool AddFrameToSprite(std::string SpriteIndex, std::string Pathname);
+		bool createSprite(std::string spriteIndex, int FPS);
+		bool addFrameToSprite(std::string spriteIndex, std::string Pathname);
 
 		//Object Methods
-		bool AddObject(std::string ObjectIndex, float X, float Y, std::string SpriteIndex);
-		Point* GetObjectOrigin(std::string ObjectIndex);
-		bool SetObjectOrigin(std::string ObjectIndex, float X, float Y);
-		
+		void addObject(float x, float y, std::string spriteIndex);
+		bool addIndexedObject(std::string ObjectIndex, float x, float y, std::string spriteIndex);
+		bool addTaggedObject(std::string ObjectTag, float x, float y, std::string spriteIndex);
+
+		Point* getObjectOrigin(std::string ObjectIndex);
+		bool setObjectOrigin(std::string ObjectIndex, float x, float y);
+		bool setObjectSprite(std::string ObjectIndex, std::string spriteIndex);
+		void setObjectHorizontalDirection(std::string ObjectIndex, Enums::HorizontalDirection hDirection);
+		void setObjectVerticalDirection(std::string ObjectIndex, Enums::VerticalDirection vDirection);
+
+		bool isFree(float x, float y);
+
+
 		//Gamepad Methods
-		bool IsGamepadConnected(int GamepadId);
-		bool IsGamepadbuttonPressed(int GamepadId, int ButtonId);
-		float GetGamepadAxisValue(int GamepadId, int AxisId);
+		bool isGamepadConnected(int GamepadId);
+		bool isGamepadButtonPressed(int GamepadId, int ButtonId);
+		float getGamepadAxisValue(int GamepadId, int AxisId);
+
+		//Keyboard 
+		bool isKeyPressed(std::string KeyName);
+
+
 
 
 

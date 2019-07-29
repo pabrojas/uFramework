@@ -1,123 +1,189 @@
 #include "EngineWindow.h"
+#include "KeyboardMapper.h"
 #include "Logger.h"
+#include "SpritePool.h"
+#include "ObjectPool.h"
+#include "Object.h"
+#include "Point.h"
+#include "Sprite.h"
+
+
+#include <iostream>
 
 using namespace uFramework;
 
-EngineWindow::EngineWindow() : sf::Thread(&EngineWindow::PrivateShow, this)
+EngineWindow::EngineWindow() : sf::Thread(&EngineWindow::privateShow, this)
 {
+	this->lastUsedIndex = 0;
+	this->objects = new ObjectPool();
 }
 
-void EngineWindow::PrivateShow()
+void EngineWindow::privateShow()
 {
-	sf::Clock Clock;
+	sf::Clock clock;
 
-	sf::RenderWindow Window(sf::VideoMode(1024, 768), "uFramework");
+	sf::RenderWindow window(sf::VideoMode(1024, 768), "uFramework");
 
-	while (Window.isOpen())
+	while (window.isOpen())
 	{
 		sf::Event Event;
-		while (Window.pollEvent(Event))
+		while (window.pollEvent(Event))
 		{
 			if (Event.type == sf::Event::Closed)
-				Window.close();
+				window.close();
 		}
 
-		Window.clear();
+		window.clear();
 
-		this->ResourcesMutex.lock();
+		this->resourcesMutex.lock();
 		
-		ObjectIterator Iterator = this->Objects.Begin();
-		ObjectIterator End = this->Objects.End();
-		
-		while (Iterator != End)
+		std::unordered_map<std::string, Object*>::iterator it = this->objects->begin();
+		std::unordered_map<std::string, Object*>::iterator end = this->objects->end();
+
+		while (it != end)
 		{
-			Object* Object = Iterator->second;
-			Sprite* Sprite = this->Sprites.GetSprite(Object->SpriteIndex);
-			
-			Sprite->Tick( Clock.getElapsedTime() );
-			sf::Sprite* sfSprite = Sprite->GetCurrent();
+			Object* object = it->second;
+			Sprite* sprite = object->getSprite();
+
+			sprite->tick(clock.getElapsedTime());
+			sf::Sprite* sfSprite = sprite->getCurrent();
 			if (sfSprite != nullptr)
 			{
-				sfSprite->setOrigin(Object->X, Object->Y);
-				Window.draw(*(sfSprite));
+				sfSprite->setOrigin(object->x, object->y);
+				window.draw(*(sfSprite));
 			}
-
-			Iterator++;
+			it++;
 		}
-		
 
-		this->ResourcesMutex.unlock();
-
-		Window.display();
+		this->resourcesMutex.unlock();
+		window.display();
 	}
 }
 
-/*
-void EngineWindow::Show()
+bool EngineWindow::createSprite(std::string spriteIndex, int fps)
 {
-	sf::Thread Thread(&EngineWindow::PrivateShow, this);
-	Thread.launch();
-	return;
-}
-*/
-
-bool EngineWindow::CreateSprite(std::string SpriteIndex, int FPS)
-{
-	this->ResourcesMutex.lock();
-	bool ReturnValue = this->Sprites.CreateSprite(SpriteIndex, FPS);
-	this->ResourcesMutex.unlock();
+	this->resourcesMutex.lock();
+	Sprite* sprite = new Sprite(fps);
+	bool ReturnValue = SpritePool::add(spriteIndex, sprite);
+	this->resourcesMutex.unlock();
 	return ReturnValue;
 }
 
-bool EngineWindow::AddFrameToSprite(std::string SpriteIndex, std::string Pathname)
+bool EngineWindow::addFrameToSprite(std::string spriteIndex, std::string pathname)
 {
-	this->ResourcesMutex.lock();
-	bool ReturnValue = this->Sprites.AddFrame(SpriteIndex, Pathname);
-	this->ResourcesMutex.unlock();
+	this->resourcesMutex.lock();
+	bool ReturnValue = SpritePool::addFrame(spriteIndex, pathname);
+	this->resourcesMutex.unlock();
 
 	return ReturnValue;
 }
 
-bool EngineWindow::AddObject(std::string ObjectIndex, float X, float Y, std::string SpriteIndex)
+void EngineWindow::addObject(float x, float y, std::string spriteIndex)
 {
-	this->ResourcesMutex.lock();
-	bool ReturnValue = this->Objects.AddObject(ObjectIndex, X, Y, SpriteIndex);
-	this->ResourcesMutex.unlock();
+	this->resourcesMutex.lock();
+	this->objects->addObject(x, y, spriteIndex);
+	this->resourcesMutex.unlock();
+}
+
+bool EngineWindow::addIndexedObject(std::string ObjectIndex, float x, float y, std::string spriteIndex)
+{
+	this->resourcesMutex.lock();
+	bool ReturnValue = this->objects->addIndexedObject(ObjectIndex, x, y, spriteIndex);
+	this->resourcesMutex.unlock();
 
 	return ReturnValue;
 }
 
-Point* EngineWindow::GetObjectOrigin(std::string ObjectIndex)
+bool EngineWindow::addTaggedObject(std::string ObjectTag, float x, float y, std::string spriteIndex)
 {
-	this->ResourcesMutex.lock();
-	Point* ReturnValue = this->Objects.GetOrigin(ObjectIndex);
-	this->ResourcesMutex.unlock();
-
-	return ReturnValue;
-}
-
-bool EngineWindow::SetObjectOrigin(std::string ObjectIndex, float X, float Y)
-{
-	this->ResourcesMutex.lock();
-	bool ReturnValue = this->Objects.SetOrigin(ObjectIndex, X, Y);
-	this->ResourcesMutex.unlock();
+	this->lastUsedIndex++;
+	this->resourcesMutex.lock();
+	bool ReturnValue = this->objects->addIndexedObject(ObjectTag + std::to_string(this->lastUsedIndex), x, y, spriteIndex);
+	this->resourcesMutex.unlock();
 
 	return ReturnValue;
 }
 
 
-bool EngineWindow::IsGamepadConnected(int id)
+uFramework::Point* EngineWindow::getObjectOrigin(std::string ObjectIndex)
+{
+	this->resourcesMutex.lock();
+	Point* ReturnValue = this->objects->getOrigin(ObjectIndex);
+	this->resourcesMutex.unlock();
+
+	return ReturnValue;
+}
+
+bool EngineWindow::setObjectOrigin(std::string ObjectIndex, float x, float y)
+{
+	this->resourcesMutex.lock();
+	bool ReturnValue = this->objects->setOrigin(ObjectIndex, x, y);
+	this->resourcesMutex.unlock();
+
+	return ReturnValue;
+}
+
+bool EngineWindow::setObjectSprite(std::string ObjectIndex, std::string spriteIndex)
+{
+	Object* Object = this->objects->get(ObjectIndex);
+	if (Object == nullptr)
+	{
+		return false;
+	}
+
+	return Object->setSprite(spriteIndex);
+}
+
+void EngineWindow::setObjectHorizontalDirection(std::string ObjectIndex, Enums::HorizontalDirection hDirection)
+{
+	Object* Object = this->objects->get(ObjectIndex);
+	if (Object == nullptr)
+	{
+		return;
+	}
+
+	Object->setHorizontalDirection(hDirection);
+}
+
+void EngineWindow::setObjectVerticalDirection(std::string ObjectIndex, Enums::VerticalDirection vDirection)
+{
+	Object* object = this->objects->get(ObjectIndex);
+	if (object == nullptr)
+	{
+		return;
+	}
+
+	object->setVerticalDirection(vDirection);
+}
+
+bool EngineWindow::isFree(float x, float y)
+{
+	std::unordered_map<std::string, Object*>::iterator it = this->objects->begin();
+	while (it != this->objects->end())
+	{
+		if (it->second->contains(x, y))
+		{
+			return false;
+		}
+
+		it++;
+	}
+	return true;
+}
+
+
+bool EngineWindow::isGamepadConnected(int id)
 {
 
 	return (sf::Joystick::isConnected(id));
 }
 
-bool EngineWindow::IsGamepadbuttonPressed(int GamepadId, int ButtonId)
+bool EngineWindow::isGamepadButtonPressed(int GamepadId, int ButtonId)
 {
 	return  (sf::Joystick::isButtonPressed(GamepadId, ButtonId));
 }
 
-float EngineWindow::GetGamepadAxisValue(int GamepadId, int AxisId)
+float EngineWindow::getGamepadAxisValue(int GamepadId, int AxisId)
 {
 	if (AxisId == 0)
 		return sf::Joystick::getAxisPosition(GamepadId, sf::Joystick::X);
@@ -125,4 +191,11 @@ float EngineWindow::GetGamepadAxisValue(int GamepadId, int AxisId)
 		return sf::Joystick::getAxisPosition(GamepadId, sf::Joystick::Y);
 
 	return 0;
+}
+
+//Keyboard 
+bool EngineWindow::isKeyPressed(std::string KeyName)
+{
+	sf::Keyboard::Key Key = KeyboardMapper::get(KeyName);
+	return sf::Keyboard::isKeyPressed(Key);
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <iostream>
+#include <string>
 
 namespace uFramework
 {
@@ -9,10 +9,11 @@ namespace uFramework
 	public:
 
 		//Methods
-		static void FileNotFound(std::string Pathname);
-		static void IndexNotFound(std::string ListName, std::string Index);
-		static void IndexAlreadyExists(std::string ClassName, std::string Index);
-		static void Log(std::string Message);
+		static void fileNotFound(std::string Pathname);
+		static void indexNotFound(std::string ListName, std::string Index);
+		static void indexAlreadyExists(std::string ClassName, std::string Index);
+		static void log(std::string Message);
+		static void keyNotFound();
 	};
 
 }

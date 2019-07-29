@@ -1,40 +1,122 @@
 
-#include "EngineWindow.h"
-#include "Point.h"
-#include "Logger.h"
+#include <SFML/Graphics.hpp>
 
 #include <iostream>
 
 #include <Windows.h>
 
-#include <SFML/Graphics.hpp>
 
 int main()
 {
-	
+	std::cout << "Hello world!" << std::endl;
+	return 0;
+}
+
+
+
+/*
+
+std::string ExePath() {
+	char buffer[MAX_PATH];
+	GetModuleFileName(NULL, buffer, MAX_PATH);
+	std::string::size_type pos = std::string(buffer).find_last_of("\\/");
+	return std::string(buffer).substr(0, pos);
+}
+
+
+void load_sprites(uFramework::EngineWindow * window)
+{
+	std::string path = ExePath();
+
+
+	window->createSprite("sIdle", 1);
+	window->addFrameToSprite("sIdle", path + "\\PNG\\Characters\\platformChar_idle.png");
+
+	window->createSprite("sWalk", 10);
+	window->addFrameToSprite("sWalk", path + "\\PNG\\Characters\\platformChar_walk1.png");
+	window->addFrameToSprite("sWalk", path + "\\PNG\\Characters\\platformChar_walk2.png");
+
+	window->createSprite("sWall", 1);
+	window->addFrameToSprite("sWall", path + "\\PNG\\Tiles\\platformPack_tile040.png");
+}
+
+int main()
+{
 	uFramework::EngineWindow Window;
+	load_sprites(&Window);
+	Window.addIndexedObject("oPlayer", -150, -355, "sIdle");
+	Window.addObject(-100, -386, "sWall");
+	Window.addObject(-600, -386, "sWall");
 
-	Window.CreateSprite("Index1", 5);
-	Window.AddFrameToSprite("Index1", "C:\\Users\\Pablo Rojas\\Desktop\\sokoban\\PNG\\Default size\\Blocks\\block_01.png");
-	Window.AddFrameToSprite("Index1", "C:\\Users\\Pablo Rojas\\Desktop\\sokoban\\PNG\\Default size\\Blocks\\block_02.png");
-
-	Window.AddObject("Objeto1", -50, -50, "Index1");
-
-	Window.AddObject("Objeto2", -150, -50, "Index1");
-	
+	/*
+	for (int i = 0; i < 1000; i+=64)
+	{
+		for (int j = 0; j < 300; j+=64)
+		{
+			Window.addObject(-(float)i, -(float)450-j, "sWall");
+		}
+	}
+	* /
 
 	Window.launch();
 
+	bool ToLeft = false;
+	bool ToRight = false;
+
 	while (1)
 	{
-		if (Window.IsGamepadConnected(0))
+		ToLeft = false;
+		ToRight = false;
+
+		if (Window.isGamepadConnected(0))
 		{
-			uFramework::Point* Origin = Window.GetObjectOrigin("Objeto1");
-			if (Origin != nullptr)
+			float AxisValue = Window.getGamepadAxisValue(0, 0);
+
+			if (AxisValue > 20 )
 			{
-				Window.SetObjectOrigin("Objeto1", 
-					Origin->X - Window.GetGamepadAxisValue(0, 0) / 20, 
-					Origin->Y - Window.GetGamepadAxisValue(0, 1) / 20 );
+				ToLeft = true;
+			}
+			else if (AxisValue < -20 )
+			{
+				ToRight = true;
+			}
+		}
+
+		if (Window.isKeyPressed("LEFT"))
+		{
+			ToLeft = true;
+		}
+		if (Window.isKeyPressed("Right"))
+		{
+			ToRight = true;
+		}
+
+
+		uFramework::Point* Origin = Window.getObjectOrigin("oPlayer");
+		if (Origin != nullptr)
+		{
+
+
+			if (ToRight)
+			{
+				if (Window.isFree(Origin->x - 5, Origin->y))
+				{
+					Window.setObjectOrigin("oPlayer", Origin->x - 5, Origin->y);
+				}
+
+				Window.setObjectSprite("oPlayer", "sWalk");
+				Window.setObjectHorizontalDirection("oPlayer", uFramework::Object::HorizontalDirection::LEFT);
+
+			}
+			else if (ToLeft)
+			{
+				Window.setObjectOrigin("oPlayer", Origin->x + 5, Origin->y);
+				Window.setObjectSprite("oPlayer", "sWalk");
+				Window.setObjectHorizontalDirection("oPlayer", uFramework::Object::HorizontalDirection::RIGHT);
+			}
+			else
+			{
+				Window.setObjectSprite("oPlayer", "sIdle");
 			}
 
 		}
@@ -44,10 +126,10 @@ int main()
 
 
 	/*
-	
-	
+
+
 	uFramework::SpriteList List;
-	
+
 	List.CreateSprite("Index1", 10);
 	List.AddFrame("Index1", "C:\\Users\\Pablo Rojas\\Desktop\\sokoban\\PNG\\Default size\\Blocks\\block_01.png");
 	List.AddFrame("Index1", "C:\\Users\\Pablo Rojas\\Desktop\\sokoban\\PNG\\Default size\\Blocks\\block_02.png");
@@ -79,8 +161,8 @@ int main()
 		window.draw(shape);
 		window.display();
 	}
-	*/
+	* /
 
 	return 0;
 }
-
+*/

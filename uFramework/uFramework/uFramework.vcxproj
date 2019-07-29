@@ -18,6 +18,33 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Bounds.cpp" />
+    <ClCompile Include="EngineWindow.cpp" />
+    <ClCompile Include="Enums.cpp" />
+    <ClCompile Include="ImageManager.cpp" />
+    <ClCompile Include="KeyboardMapper.cpp" />
+    <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="ObjectPool.cpp" />
+    <ClCompile Include="Point.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="SpritePool.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Bounds.h" />
+    <ClInclude Include="EngineWindow.h" />
+    <ClInclude Include="Enums.h" />
+    <ClInclude Include="ImageManager.h" />
+    <ClInclude Include="KeyboardMapper.h" />
+    <ClInclude Include="Logger.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="ObjectPool.h" />
+    <ClInclude Include="Point.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="SpritePool.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{F040348D-8F9A-4AA2-9F64-3CA297772235}</ProjectGuid>
@@ -91,9 +118,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../SFML/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>$(SolutionDir)/../SFML/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-main-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -123,32 +153,16 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../SFML/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)/../SFML/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-main-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="EngineWindow.cpp" />
-    <ClCompile Include="Logger.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Object.cpp" />
-    <ClCompile Include="ObjectList.cpp" />
-    <ClCompile Include="Point.cpp" />
-    <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="SpriteList.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="EngineWindow.h" />
-    <ClInclude Include="Logger.h" />
-    <ClInclude Include="Object.h" />
-    <ClInclude Include="ObjectList.h" />
-    <ClInclude Include="Point.h" />
-    <ClInclude Include="Sprite.h" />
-    <ClInclude Include="SpriteList.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

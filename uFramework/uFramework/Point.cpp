@@ -2,8 +2,8 @@
 
 using namespace uFramework;
 
-Point::Point(float X, float Y)
+Point::Point(float x, float y)
 {
-	this->X = X;
-	this->Y = Y;
+	this->x = x;
+	this->y = y;
 }

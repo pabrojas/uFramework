@@ -1,38 +1,65 @@
 #pragma once
 
-#include <iostream>
+#include "Enums.h"
+
+#include <string>
 
 namespace uFramework
 {
+	class Bounds;
+	class Sprite;
+	class Point;
+
 	class Object
 	{
+
 	private:
 
 		//Static Fields
-		static std::string SPRITE_NO_SETTED;
+		static const std::string SPRITE_NO_SETTED;
+
 
 		//Fields
-		bool SizeSetted;
+		float width;
+		float height;
+		Sprite* sprite;
+		std::string spriteIndex;
+		bool usingSpriteSize;
+		Enums::HorizontalDirection hDirection;
+		Enums::VerticalDirection vDirection;
 
-		//Methods
+
 
 	public:
 
 		//Fields
-		float X;
-		float Y;
-		float W;
-		float H;
-		std::string SpriteIndex;
+		float x;
+		float y;
 
 		//Class constructors
-		Object(float X, float Y);
-		Object(float X, float Y, float W, float H);
+		Object(float x, float y);
+		Object(float x, float y, std::string spriteIndex);
+		Object(float x, float y, float w, float h);
+		Object(float x, float y, float w, float h, std::string spriteIndex);
 
-		//Methods
+		//Sprite methods
+		bool setSprite(std::string spriteIndex);
+		Sprite* getSprite();
 
+
+		//Direction methods
+		void setHorizontalDirection(Enums::HorizontalDirection direction);
+		void setVerticalDirection(Enums::VerticalDirection direction);
+		Enums::HorizontalDirection getHorizontalDirection();
+		Enums::VerticalDirection getVerticalDirection();
+
+		//Bounds methods
+		bool isUsingSpriteSize();
+		Bounds* getBounds();
+		bool intersects(Bounds* other);
+		bool contains(Point* point);
+		bool contains(float x, float y);
 
 
 	};
 }
-

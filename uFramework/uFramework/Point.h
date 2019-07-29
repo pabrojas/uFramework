@@ -2,19 +2,17 @@
 
 namespace uFramework
 {
-
 	class Point
 	{
 	public:
 
 		//Fields
-		float X;
-		float Y;
+		float x;
+		float y;
 
 		//Class constructors
-		Point(float X, float Y);
+		Point(float x, float y);
 
 	};
 
 }
-

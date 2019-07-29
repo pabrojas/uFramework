@@ -1,67 +1,78 @@
 #include "Sprite.h"
+#include "ImageManager.h"
+#include "Object.h"
 #include "Logger.h"
 
+using namespace uFramework;
+
 //Class constructor
-uFramework::Sprite::Sprite(int FPS)
+uFramework::Sprite::Sprite(int fps)
 {
-	this->FPS = FPS;
-	this->CurrentIndex = 0;
-	this->LastTick = sf::seconds(0.0f);
+	if (fps == 0)
+	{
+		fps = 1;
+	}
+	this->fps = fps;
+	this->currentIndex = 0;
+	this->lastTick = sf::seconds(0.0f);
 }
 
-
-//Load a file
-sf::Sprite* uFramework::Sprite::Load(std::string Pathname)
+uFramework::Sprite::Sprite(Sprite* sprite)
 {
-	sf::Image* image = new sf::Image();
-	if (!(image->loadFromFile(Pathname)))
+	this->fps = sprite->fps;
+	this->currentIndex = sprite->currentIndex;
+	this->lastTick = sprite->lastTick;
+
+	int N = (int)(sprite->sprites.size());
+	for (int i = 0; i < N; i++)
 	{
-		Logger::FileNotFound(Pathname);
-		return nullptr;
+		sf::Sprite* cloned = new sf::Sprite(*(sprite->sprites.at(i)));
+		this->sprites.push_back(cloned);
 	}
+}
 
-	sf::Texture* texture = new sf::Texture();
-	texture->loadFromImage(*image);
-
-	sf::Sprite* sprite = new sf::Sprite();
-	sprite->setTexture(*texture);
-
-	return sprite;
-	
+void uFramework::Sprite::setFps(int fps)
+{
+	if (fps == 0)
+	{
+		fps = 1;
+	}
+	this->fps = fps;
 }
 
 //Add a file to this sprite
-bool uFramework::Sprite::AddFrame(std::string Pathname)
+bool uFramework::Sprite::addFrame(std::string Pathname)
 {
-	sf::Sprite* sprite = this->Load(Pathname);
-	if( sprite == nullptr )
+	sf::Sprite* sprite = ImageManager::load(Pathname);
+	if (sprite == nullptr)
 	{
 		return false;
 	}
 
-	this->Sprites.push_back(sprite);
+	this->sprites.push_back(sprite);
 	return true;
 }
 
-sf::Sprite* uFramework::Sprite::GetCurrent()
+sf::Sprite* uFramework::Sprite::getCurrent()
 {
-	if (this->Sprites.empty())
+	if (this->sprites.empty())
 	{
 		return nullptr;
 	}
 
-	return this->Sprites.at(this->CurrentIndex);
+	sf::Sprite* current = this->sprites.at(this->currentIndex);
+	return current;
 }
 
-void uFramework::Sprite::Tick(sf::Time Time)
+void uFramework::Sprite::tick(sf::Time Time)
 {
-	if (Time - this->LastTick > sf::milliseconds(1000/FPS))
+	if (Time - this->lastTick > sf::milliseconds(1000 / fps))
 	{
-		this->LastTick = Time;
-		int Size = this->Sprites.size();
-		if (Size > 0)
+		this->lastTick = Time;
+		int size = this->sprites.size();
+		if (size > 0)
 		{
-			this->CurrentIndex = (this->CurrentIndex + 1) % Size;
+			this->currentIndex = (this->currentIndex + 1) % size;
 		}
 	}
 }

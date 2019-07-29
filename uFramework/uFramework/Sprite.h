@@ -1,8 +1,8 @@
 #pragma once
 
-#include <vector>
-
 #include <SFML/Graphics.hpp>
+
+#include <vector>
 
 namespace uFramework
 {
@@ -11,24 +11,22 @@ namespace uFramework
 
 	private:
 		//Fields
-		sf::Time LastTick;
-		int CurrentIndex;
-		int FPS;
-		std::vector<sf::Sprite*> Sprites;
-
-		//Methods
-		sf::Sprite* Load(std::string Pathname);
+		sf::Time lastTick;
+		int currentIndex;
+		int fps;
+		std::vector<sf::Sprite*> sprites;
 
 	public:
 
 		//Class constructors
-		Sprite(int FPS);
+		Sprite(int fps);
+		Sprite(Sprite* sprite);
 
 		//Methods
-		bool AddFrame(std::string Pathname);
-		sf::Sprite* GetCurrent();
-		void Tick(sf::Time Time);
+		void setFps(int fps);
+		bool addFrame(std::string pathname);
+		sf::Sprite* getCurrent();
+		void tick(sf::Time time);
 
 	};
 }
-
