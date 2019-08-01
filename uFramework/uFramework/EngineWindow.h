@@ -4,6 +4,7 @@
 #include <SFML/System.hpp>
 #include <vector>
 #include <unordered_map>
+#include <memory>
 
 #include "Enums.h"
 
@@ -19,14 +20,11 @@ namespace uFramework
 
 		//Fields
 		sf::Mutex resourcesMutex;
-		ObjectPool* objects;
+		std::shared_ptr<ObjectPool> objects;
 		int lastUsedIndex;
-
-
+		
 		//Methods
 		void privateShow();
-
-
 
 	public:
 
@@ -42,7 +40,7 @@ namespace uFramework
 		bool addIndexedObject(std::string ObjectIndex, float x, float y, std::string spriteIndex);
 		bool addTaggedObject(std::string ObjectTag, float x, float y, std::string spriteIndex);
 
-		Point* getObjectOrigin(std::string ObjectIndex);
+		std::shared_ptr<Point> getObjectOrigin(std::string ObjectIndex);
 		bool setObjectOrigin(std::string ObjectIndex, float x, float y);
 		bool setObjectSprite(std::string ObjectIndex, std::string spriteIndex);
 		void setObjectHorizontalDirection(std::string ObjectIndex, Enums::HorizontalDirection hDirection);

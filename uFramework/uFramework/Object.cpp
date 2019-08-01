@@ -42,7 +42,7 @@ Object::Object(float x, float y, float w, float h, std::string spriteIndex)
 
 bool Object::setSprite(std::string spriteIndex)
 {
-	Sprite* sprite = SpritePool::get(spriteIndex);
+	auto sprite = SpritePool::get(spriteIndex);
 	if (sprite == nullptr)
 	{
 		this->spriteIndex = Object::SPRITE_NO_SETTED;
@@ -55,7 +55,7 @@ bool Object::setSprite(std::string spriteIndex)
 	return true;
 }
 
-uFramework::Sprite* Object::getSprite()
+std::shared_ptr<Sprite> Object::getSprite()
 {
 	return this->sprite;
 }
@@ -85,35 +85,32 @@ bool Object::isUsingSpriteSize()
 	return this->usingSpriteSize;
 }
 
-uFramework::Bounds* Object::getBounds()
+std::shared_ptr<Bounds> Object::getBounds()
 {
 	if (this->usingSpriteSize)
 	{
 		return nullptr;
 	}
-	return new Bounds(this->x, this->y, this->width, this->height);
+	return std::make_shared<Bounds>(this->x, this->y, this->width, this->height);
 }
 
-bool Object::intersects(Bounds* other)
+bool Object::intersects(std::shared_ptr<Bounds> other)
 {
-	Bounds* bounds = this->getBounds();
+	std::shared_ptr<Bounds> bounds = this->getBounds();
 	bool returnValue = bounds->intersects(other);
-	delete bounds;
 	return returnValue;
 }
 
-bool Object::contains(Point* point)
+bool Object::contains(std::shared_ptr<Point> point)
 {
-	Bounds* bounds = this->getBounds();
+	auto bounds = this->getBounds();
 	bool returnValue = bounds->contains(point);
-	delete bounds;
 	return returnValue;
 }
 
 bool Object::contains(float x, float y)
 {
-	Bounds* bounds = this->getBounds();
+	auto bounds = this->getBounds();
 	bool returnValue = bounds->contains(x, y);
-	delete bounds;
 	return returnValue;
 }

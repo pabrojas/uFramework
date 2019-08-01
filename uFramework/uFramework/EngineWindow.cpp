@@ -15,7 +15,7 @@ using namespace uFramework;
 EngineWindow::EngineWindow() : sf::Thread(&EngineWindow::privateShow, this)
 {
 	this->lastUsedIndex = 0;
-	this->objects = new ObjectPool();
+	this->objects = std::make_shared<ObjectPool>();
 }
 
 void EngineWindow::privateShow()
@@ -26,6 +26,9 @@ void EngineWindow::privateShow()
 
 	while (window.isOpen())
 	{
+		std::cout << clock.getElapsedTime().asMilliseconds() << " :: ";
+
+
 		sf::Event Event;
 		while (window.pollEvent(Event))
 		{
@@ -37,16 +40,17 @@ void EngineWindow::privateShow()
 
 		this->resourcesMutex.lock();
 		
-		std::unordered_map<std::string, Object*>::iterator it = this->objects->begin();
-		std::unordered_map<std::string, Object*>::iterator end = this->objects->end();
+
+		auto it = this->objects->begin();
+		auto end = this->objects->end();
 
 		while (it != end)
 		{
-			Object* object = it->second;
-			Sprite* sprite = object->getSprite();
+			auto object = it->second;
+			auto sprite = object->getSprite();
 
 			sprite->tick(clock.getElapsedTime());
-			sf::Sprite* sfSprite = sprite->getCurrent();
+			auto sfSprite = sprite->getCurrent();
 			if (sfSprite != nullptr)
 			{
 				sfSprite->setOrigin(object->x, object->y);
@@ -63,10 +67,10 @@ void EngineWindow::privateShow()
 bool EngineWindow::createSprite(std::string spriteIndex, int fps)
 {
 	this->resourcesMutex.lock();
-	Sprite* sprite = new Sprite(fps);
-	bool ReturnValue = SpritePool::add(spriteIndex, sprite);
+	auto sprite = std::make_shared<Sprite>(spriteIndex, fps);
+	bool returnValue = SpritePool::add(spriteIndex, sprite);
 	this->resourcesMutex.unlock();
-	return ReturnValue;
+	return returnValue;
 }
 
 bool EngineWindow::addFrameToSprite(std::string spriteIndex, std::string pathname)
@@ -88,66 +92,66 @@ void EngineWindow::addObject(float x, float y, std::string spriteIndex)
 bool EngineWindow::addIndexedObject(std::string ObjectIndex, float x, float y, std::string spriteIndex)
 {
 	this->resourcesMutex.lock();
-	bool ReturnValue = this->objects->addIndexedObject(ObjectIndex, x, y, spriteIndex);
+	bool returnValue = this->objects->addIndexedObject(ObjectIndex, x, y, spriteIndex);
 	this->resourcesMutex.unlock();
 
-	return ReturnValue;
+	return returnValue;
 }
 
 bool EngineWindow::addTaggedObject(std::string ObjectTag, float x, float y, std::string spriteIndex)
 {
 	this->lastUsedIndex++;
 	this->resourcesMutex.lock();
-	bool ReturnValue = this->objects->addIndexedObject(ObjectTag + std::to_string(this->lastUsedIndex), x, y, spriteIndex);
+	bool returnValue = this->objects->addIndexedObject(ObjectTag + std::to_string(this->lastUsedIndex), x, y, spriteIndex);
 	this->resourcesMutex.unlock();
 
-	return ReturnValue;
+	return returnValue;
 }
 
-
-uFramework::Point* EngineWindow::getObjectOrigin(std::string ObjectIndex)
+std::shared_ptr<Point> EngineWindow::getObjectOrigin(std::string ObjectIndex)
 {
 	this->resourcesMutex.lock();
-	Point* ReturnValue = this->objects->getOrigin(ObjectIndex);
+	auto returnValue = this->objects->getOrigin(ObjectIndex);
 	this->resourcesMutex.unlock();
-
-	return ReturnValue;
+	return returnValue;
 }
 
 bool EngineWindow::setObjectOrigin(std::string ObjectIndex, float x, float y)
 {
 	this->resourcesMutex.lock();
-	bool ReturnValue = this->objects->setOrigin(ObjectIndex, x, y);
+	bool returnValue = this->objects->setOrigin(ObjectIndex, x, y);
 	this->resourcesMutex.unlock();
-
-	return ReturnValue;
+	return returnValue;
 }
 
 bool EngineWindow::setObjectSprite(std::string ObjectIndex, std::string spriteIndex)
 {
-	Object* Object = this->objects->get(ObjectIndex);
-	if (Object == nullptr)
+	auto object = this->objects->get(ObjectIndex);
+	if (object == nullptr)
 	{
 		return false;
 	}
-
-	return Object->setSprite(spriteIndex);
+	if (object->getSprite()->index.compare(spriteIndex) == 0)
+	{
+		return true;
+	}
+	return object->setSprite(spriteIndex);
 }
 
 void EngineWindow::setObjectHorizontalDirection(std::string ObjectIndex, Enums::HorizontalDirection hDirection)
 {
-	Object* Object = this->objects->get(ObjectIndex);
-	if (Object == nullptr)
+	auto object = this->objects->get(ObjectIndex);
+	if (object == nullptr)
 	{
 		return;
 	}
 
-	Object->setHorizontalDirection(hDirection);
+	object->setHorizontalDirection(hDirection);
 }
 
 void EngineWindow::setObjectVerticalDirection(std::string ObjectIndex, Enums::VerticalDirection vDirection)
 {
-	Object* object = this->objects->get(ObjectIndex);
+	auto object = this->objects->get(ObjectIndex);
 	if (object == nullptr)
 	{
 		return;
@@ -158,7 +162,7 @@ void EngineWindow::setObjectVerticalDirection(std::string ObjectIndex, Enums::Ve
 
 bool EngineWindow::isFree(float x, float y)
 {
-	std::unordered_map<std::string, Object*>::iterator it = this->objects->begin();
+	auto it = this->objects->begin();
 	while (it != this->objects->end())
 	{
 		if (it->second->contains(x, y))

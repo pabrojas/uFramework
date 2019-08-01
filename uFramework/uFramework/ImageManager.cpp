@@ -7,7 +7,7 @@ std::unordered_map<std::string, sf::Sprite*> ImageManager::FILE_MAP = std::unord
 
 sf::Sprite* ImageManager::load(std::string pathname)
 {
-	std::unordered_map<std::string, sf::Sprite*>::iterator it = ImageManager::FILE_MAP.find(pathname);
+	auto it = ImageManager::FILE_MAP.find(pathname);
 	if (it != ImageManager::FILE_MAP.end())
 	{
 		return it->second;
@@ -26,20 +26,20 @@ sf::Sprite* ImageManager::load(std::string pathname)
 	sf::Sprite* sprite = new sf::Sprite();
 	sprite->setTexture(*texture);
 
-	ImageManager::FILE_MAP.emplace(pathname, sprite);
+	ImageManager::FILE_MAP[pathname] = sprite;
 	return sprite;
 }
 
-sf::Sprite* ImageManager::get(std::string pathname)
+std::shared_ptr<sf::Sprite> ImageManager::get(std::string pathname)
 {
-	std::unordered_map<std::string, sf::Sprite*>::iterator it = ImageManager::FILE_MAP.find(pathname);
+	auto it = ImageManager::FILE_MAP.find(pathname);
 	if (it == ImageManager::FILE_MAP.end())
 	{
 		return nullptr;
 	}
 
-	sf::Sprite* storedSprite = it->second;
-	sf::Sprite* clonedSprite = new sf::Sprite(*storedSprite);
+	auto storedSprite = it->second;
+	auto clonedSprite = std::make_shared<sf::Sprite>(*storedSprite);
 
 	return clonedSprite;
 }

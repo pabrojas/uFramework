@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 namespace uFramework
 {
 	class Point;
@@ -18,8 +20,8 @@ namespace uFramework
 		Bounds(float x, float y, float width, float height);
 
 		//Methods
-		bool intersects(Bounds* another);
-		bool contains(Point* point);
+		bool intersects(std::shared_ptr<Bounds> another);
+		bool contains(std::shared_ptr<Point> point);
 		bool contains(float xp, float yp);
 
 

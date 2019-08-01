@@ -1,20 +1,15 @@
 
-#include <SFML/Graphics.hpp>
+
+#include "EngineWindow.h"
+#include "Point.h"
 
 #include <iostream>
-
 #include <Windows.h>
-
-
-int main()
-{
-	std::cout << "Hello world!" << std::endl;
-	return 0;
-}
+#include <memory>
 
 
 
-/*
+
 
 std::string ExePath() {
 	char buffer[MAX_PATH];
@@ -27,7 +22,6 @@ std::string ExePath() {
 void load_sprites(uFramework::EngineWindow * window)
 {
 	std::string path = ExePath();
-
 
 	window->createSprite("sIdle", 1);
 	window->addFrameToSprite("sIdle", path + "\\PNG\\Characters\\platformChar_idle.png");
@@ -45,18 +39,18 @@ int main()
 	uFramework::EngineWindow Window;
 	load_sprites(&Window);
 	Window.addIndexedObject("oPlayer", -150, -355, "sIdle");
-	Window.addObject(-100, -386, "sWall");
-	Window.addObject(-600, -386, "sWall");
+	//Window.addObject(-100, -386, "sWall");
+	//Window.addObject(-600, -386, "sWall");
 
-	/*
+	
 	for (int i = 0; i < 1000; i+=64)
 	{
 		for (int j = 0; j < 300; j+=64)
 		{
-			Window.addObject(-(float)i, -(float)450-j, "sWall");
+			//Window.addObject(-(float)i, -(float)450-j, "sWall");
 		}
 	}
-	* /
+	
 
 	Window.launch();
 
@@ -91,33 +85,45 @@ int main()
 			ToRight = true;
 		}
 
+		ToLeft = false;
+		ToRight = true;
 
-		uFramework::Point* Origin = Window.getObjectOrigin("oPlayer");
+
+		std::shared_ptr<uFramework::Point> Origin = Window.getObjectOrigin("oPlayer");
 		if (Origin != nullptr)
 		{
-
+			
 
 			if (ToRight)
 			{
+				/*
 				if (Window.isFree(Origin->x - 5, Origin->y))
 				{
 					Window.setObjectOrigin("oPlayer", Origin->x - 5, Origin->y);
 				}
-
+				*/
+				Window.setObjectOrigin("oPlayer", Origin->x - 5, Origin->y);
 				Window.setObjectSprite("oPlayer", "sWalk");
-				Window.setObjectHorizontalDirection("oPlayer", uFramework::Object::HorizontalDirection::LEFT);
+				Window.setObjectHorizontalDirection("oPlayer", uFramework::Enums::HorizontalDirection::LEFT);
+
+				//std::cout << "Walk :: ";
+
 
 			}
 			else if (ToLeft)
 			{
 				Window.setObjectOrigin("oPlayer", Origin->x + 5, Origin->y);
 				Window.setObjectSprite("oPlayer", "sWalk");
-				Window.setObjectHorizontalDirection("oPlayer", uFramework::Object::HorizontalDirection::RIGHT);
+				Window.setObjectHorizontalDirection("oPlayer", uFramework::Enums::HorizontalDirection::RIGHT);
+
+				std::cout << "Walk :: ";
 			}
 			else
 			{
 				Window.setObjectSprite("oPlayer", "sIdle");
+				std::cout << "Idle :: ";
 			}
+			
 
 		}
 
@@ -161,8 +167,8 @@ int main()
 		window.draw(shape);
 		window.display();
 	}
-	* /
+	*/
 
 	return 0;
 }
-*/
+

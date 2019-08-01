@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include <vector>
+#include <memory>
 
 namespace uFramework
 {
@@ -14,13 +15,16 @@ namespace uFramework
 		sf::Time lastTick;
 		int currentIndex;
 		int fps;
+		
 		std::vector<sf::Sprite*> sprites;
 
 	public:
 
+		std::string index;
+
 		//Class constructors
-		Sprite(int fps);
-		Sprite(Sprite* sprite);
+		Sprite(std::string index, int fps);
+		Sprite(std::shared_ptr<Sprite> sprite);
 
 		//Methods
 		void setFps(int fps);

@@ -20,7 +20,7 @@ Bounds::Bounds(float x, float y, float width, float height)
 (x2, y2) (x4, y4)
 */
 
-bool Bounds::intersects(Bounds* another)
+bool Bounds::intersects(std::shared_ptr<Bounds> another)
 {
 	float x1 = another->x;
 	float y1 = another->y;
@@ -53,7 +53,7 @@ bool Bounds::intersects(Bounds* another)
 	return false;
 }
 
-bool Bounds::contains(Point* point)
+bool Bounds::contains(std::shared_ptr<Point> point)
 {
 	return this->contains(point->x, point->y);
 }

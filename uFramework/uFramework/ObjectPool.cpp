@@ -18,124 +18,124 @@ std::string ObjectPool::createUndefinedIndex()
 	return ObjectPool::UNDEFINED_INDEX + std::to_string(this->undefinedIndexCounter);
 }
 
-std::unordered_map<std::string, uFramework::Object*>::iterator uFramework::ObjectPool::begin()
+std::unordered_map<std::string, std::shared_ptr<Object>>::iterator uFramework::ObjectPool::begin()
 {
 	return this->indexedObjects.begin();
 }
 
-std::unordered_map<std::string, uFramework::Object*>::iterator uFramework::ObjectPool::end()
+std::unordered_map<std::string, std::shared_ptr<Object>>::iterator uFramework::ObjectPool::end()
 {
 	return this->indexedObjects.end();
 }
 
 void ObjectPool::addObject(float x, float y, std::string spriteIndex)
 {
-	Object* object = new Object(x, y);
+	std::shared_ptr<Object> object = std::make_shared<Object>(x, y);
 	object->setSprite(spriteIndex);
 	std::string index = this->createUndefinedIndex();
-	this->indexedObjects.emplace(index, object);
+	this->indexedObjects[index] = object;
 }
 
 void ObjectPool::addObject(float x, float y, float w, float h, std::string spriteIndex)
 {
-	Object* object = new Object(x, y, w, h);
+	std::shared_ptr<Object> object = std::make_shared<Object>(x, y, w, h);
 	object->setSprite(spriteIndex);
 	std::string index = this->createUndefinedIndex();
-	this->indexedObjects.emplace(index, object);
+	this->indexedObjects[index] = object;
 }
 
 bool ObjectPool::addIndexedObject(std::string index, float x, float y, std::string spriteIndex)
 {
-	std::unordered_map<std::string, Object*>::iterator it = this->indexedObjects.find(index);
+	auto it = this->indexedObjects.find(index);
 	if (it != this->end())
 	{
 		return false;
 	}
 
-	Object* object = new Object(x, y);
+	std::shared_ptr<Object> object = std::make_shared<Object>(x, y);
 	object->setSprite(spriteIndex);
-	this->indexedObjects.emplace(index, object);
+	this->indexedObjects[index] = object;
 
 	return true;
 }
 
 bool ObjectPool::addIndexedObject(std::string index, float x, float y, float w, float h, std::string spriteIndex)
 {
-	std::unordered_map<std::string, Object*>::iterator it = this->indexedObjects.find(index);
+	auto it = this->indexedObjects.find(index);
 	if (it != this->indexedObjects.end())
 	{
 		return false;
 	}
 
-	Object* object = new Object(x, y, w, h);
+	std::shared_ptr<Object> object = std::make_shared<Object>(x, y, w, h);
 	object->setSprite(spriteIndex);
-	this->indexedObjects.emplace(index, object);
+	this->indexedObjects[index] = object;
 
 	return true;
 }
 
 void ObjectPool::addTaggedObject(std::string tag, float x, float y, std::string spriteIndex)
 {
-	Object* object = new Object(x, y);
+	std::shared_ptr<Object> object = std::make_shared<Object>(x, y);
 	object->setSprite(spriteIndex);
 	std::string index = this->createUndefinedIndex();
-	this->indexedObjects.emplace(index, object);
+	this->indexedObjects[index] = object;
 
-	std::unordered_map<std::string, std::vector<Object*>>::iterator it = this->taggedObjects.find(tag);
+	auto it = this->taggedObjects.find(tag);
 	if (it != this->taggedObjects.end())
 	{
 		it->second.push_back(object);
 	}
 	else
 	{
-		std::vector<Object*> objects;
+		std::vector<std::shared_ptr<Object>> objects;
 		objects.push_back(object);
-		this->taggedObjects.emplace(tag, objects);
+		this->taggedObjects[tag] = objects;
 	}
 }
 
 void ObjectPool::addTaggedObject(std::string tag, float x, float y, float w, float h, std::string spriteIndex)
 {
-	Object* object = new Object(x, y, w, h);
+	std::shared_ptr<Object> object = std::make_shared<Object>(x, y, w, h);
 	object->setSprite(spriteIndex);
 	std::string index = this->createUndefinedIndex();
-	this->indexedObjects.emplace(index, object);
+	this->indexedObjects[index] = object;
 
-	std::unordered_map<std::string, std::vector<Object*>>::iterator it = this->taggedObjects.find(tag);
+	auto it = this->taggedObjects.find(tag);
 	if (it != this->taggedObjects.end())
 	{
 		it->second.push_back(object);
 	}
 	else
 	{
-		std::vector<Object*> objects;
+		std::vector<std::shared_ptr<Object>> objects;
 		objects.push_back(object);
-		this->taggedObjects.emplace(tag, objects);
+		this->taggedObjects[tag] = objects;
 	}
 }
 
 bool ObjectPool::addIndexedTaggedObject(std::string index, std::string tag, float x, float y, std::string spriteIndex)
 {
-	std::unordered_map<std::string, Object*>::iterator itIndexes = this->indexedObjects.find(index);
+	auto itIndexes = this->indexedObjects.find(index);
 	if (itIndexes != this->indexedObjects.end())
 	{
 		return false;
 	}
 
-	Object* object = new Object(x, y);
+	std::shared_ptr<Object> object = std::make_shared<Object>(x, y);
 	object->setSprite(spriteIndex);
-	this->indexedObjects.emplace(index, object);
+	this->indexedObjects[index] = object;
 
-	std::unordered_map<std::string, std::vector<Object*>>::iterator itTags = this->taggedObjects.find(tag);
+	auto itTags = this->taggedObjects.find(tag);
 	if (itTags != this->taggedObjects.end())
 	{
 		itTags->second.push_back(object);
 	}
 	else
 	{
-		std::vector<Object*> objects;
+		std::vector<std::shared_ptr<Object>> objects;
 		objects.push_back(object);
-		this->taggedObjects.emplace(tag, objects);
+		this->taggedObjects[tag] = objects;
 	}
 
 	return true;
@@ -143,45 +143,45 @@ bool ObjectPool::addIndexedTaggedObject(std::string index, std::string tag, floa
 
 bool ObjectPool::addIndexedTaggedObject(std::string index, std::string tag, float x, float y, float w, float h, std::string spriteIndex)
 {
-	std::unordered_map<std::string, Object*>::iterator itIndexes = this->indexedObjects.find(index);
+	auto itIndexes = this->indexedObjects.find(index);
 	if (itIndexes != this->indexedObjects.end())
 	{
 		return false;
 	}
 
-	Object* object = new Object(x, y, w, h);
+	std::shared_ptr<Object> object = std::make_shared<Object>(x, y, w, h);
 	object->setSprite(spriteIndex);
-	this->indexedObjects.emplace(index, object);
+	this->indexedObjects[index] = object;
 
-	std::unordered_map<std::string, std::vector<Object*>>::iterator itTags = this->taggedObjects.find(tag);
+	auto itTags = this->taggedObjects.find(tag);
 	if (itTags != this->taggedObjects.end())
 	{
 		itTags->second.push_back(object);
 	}
 	else
 	{
-		std::vector<Object*> objects;
+		std::vector<std::shared_ptr<Object>> objects;
 		objects.push_back(object);
-		this->taggedObjects.emplace(tag, objects);
+		this->taggedObjects[tag] = objects;
 	}
 
 	return true;
 }
 
-uFramework::Point* ObjectPool::getOrigin(std::string index)
+std::shared_ptr<Point> ObjectPool::getOrigin(std::string index)
 {
-	std::unordered_map<std::string, Object*>::iterator it = this->indexedObjects.find(index);
+	auto it = this->indexedObjects.find(index);
 	if (it == this->indexedObjects.end())
 	{
 		return nullptr;
 	}
 
-	return new Point(it->second->x, it->second->y);
+	return std::make_shared<Point>(it->second->x, it->second->y);
 }
 
 bool ObjectPool::setOrigin(std::string index, float x, float y)
 {
-	std::unordered_map<std::string, Object*>::iterator it = this->indexedObjects.find(index);
+	auto it = this->indexedObjects.find(index);
 	if (it == this->indexedObjects.end())
 	{
 		return false;
@@ -192,9 +192,9 @@ bool ObjectPool::setOrigin(std::string index, float x, float y)
 	return true;
 }
 
-bool uFramework::ObjectPool::moveOrigin(std::string index, float dx, float dy)
+bool ObjectPool::moveOrigin(std::string index, float dx, float dy)
 {
-	std::unordered_map<std::string, Object*>::iterator it = this->indexedObjects.find(index);
+	auto it = this->indexedObjects.find(index);
 	if (it == this->indexedObjects.end())
 	{
 		return false;
@@ -205,9 +205,9 @@ bool uFramework::ObjectPool::moveOrigin(std::string index, float dx, float dy)
 	return true;
 }
 
-uFramework::Object* uFramework::ObjectPool::get(std::string index)
+std::shared_ptr<Object> ObjectPool::get(std::string index)
 {
-	std::unordered_map<std::string, Object*>::iterator it = this->indexedObjects.find(index);
+	auto it = this->indexedObjects.find(index);
 	if (it == this->indexedObjects.end())
 	{
 		return nullptr;

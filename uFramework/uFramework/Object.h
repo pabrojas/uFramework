@@ -1,8 +1,9 @@
 #pragma once
 
-#include "Enums.h"
-
 #include <string>
+#include <memory>
+
+#include "Enums.h"
 
 namespace uFramework
 {
@@ -22,7 +23,7 @@ namespace uFramework
 		//Fields
 		float width;
 		float height;
-		Sprite* sprite;
+		std::shared_ptr<Sprite> sprite;
 		std::string spriteIndex;
 		bool usingSpriteSize;
 		Enums::HorizontalDirection hDirection;
@@ -44,7 +45,7 @@ namespace uFramework
 
 		//Sprite methods
 		bool setSprite(std::string spriteIndex);
-		Sprite* getSprite();
+		std::shared_ptr<Sprite> getSprite();
 
 
 		//Direction methods
@@ -55,9 +56,9 @@ namespace uFramework
 
 		//Bounds methods
 		bool isUsingSpriteSize();
-		Bounds* getBounds();
-		bool intersects(Bounds* other);
-		bool contains(Point* point);
+		std::shared_ptr<Bounds> getBounds();
+		bool intersects(std::shared_ptr<Bounds> other);
+		bool contains(std::shared_ptr<Point> point);
 		bool contains(float x, float y);
 
 

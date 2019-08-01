@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <memory>
 
 namespace uFramework
 {
@@ -18,8 +19,8 @@ namespace uFramework
 
 		//Fields
 		int undefinedIndexCounter;
-		std::unordered_map<std::string, Object*> indexedObjects;
-		std::unordered_map<std::string, std::vector<Object*>> taggedObjects;
+		std::unordered_map<std::string, std::shared_ptr<Object>> indexedObjects;
+		std::unordered_map<std::string, std::vector<std::shared_ptr<Object>>> taggedObjects;
 
 		//Methods
 		std::string createUndefinedIndex();
@@ -31,8 +32,8 @@ namespace uFramework
 		ObjectPool();
 
 		//Iterators
-		std::unordered_map<std::string, Object*>::iterator begin();
-		std::unordered_map<std::string, Object*>::iterator end();
+		std::unordered_map<std::string, std::shared_ptr<Object>>::iterator begin();
+		std::unordered_map<std::string, std::shared_ptr<Object>>::iterator end();
 
 		//Methods
 		void addObject(float x, float y, std::string spriteIndex);
@@ -47,11 +48,11 @@ namespace uFramework
 		bool addIndexedTaggedObject(std::string index, std::string tag, float x, float y, std::string spriteIndex);
 		bool addIndexedTaggedObject(std::string index, std::string tag, float x, float y, float w, float h, std::string spriteIndex);
 
-		Point* getOrigin(std::string index);
+		std::shared_ptr<Point> getOrigin(std::string index);
 		bool setOrigin(std::string index, float x, float y);
 		bool moveOrigin(std::string index, float dx, float dy);
 
-		Object* get(std::string index);
+		std::shared_ptr<Object> get(std::string index);
 
 	};
 

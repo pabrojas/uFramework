@@ -4,6 +4,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <memory>
 
 namespace uFramework
 {
@@ -14,7 +15,7 @@ namespace uFramework
 
 	public:
 		static sf::Sprite* load(std::string pathname);
-		static sf::Sprite* get(std::string pathname);
+		static std::shared_ptr<sf::Sprite> get(std::string pathname);
 
 	};
 
