@@ -7,10 +7,6 @@
 #include <Windows.h>
 #include <memory>
 
-
-
-
-
 std::string ExePath() {
 	char buffer[MAX_PATH];
 	GetModuleFileName(NULL, buffer, MAX_PATH);
@@ -39,8 +35,8 @@ int main()
 	uFramework::EngineWindow Window;
 	load_sprites(&Window);
 	Window.addIndexedObject("oPlayer", -150, -355, "sIdle");
-	//Window.addObject(-100, -386, "sWall");
-	//Window.addObject(-600, -386, "sWall");
+	Window.addObject(-100, -386, "sWall");
+	Window.addObject(-600, -386, "sWall");
 
 	
 	for (int i = 0; i < 1000; i+=64)
@@ -96,13 +92,13 @@ int main()
 
 			if (ToRight)
 			{
-				/*
-				if (Window.isFree(Origin->x - 5, Origin->y))
+				
+				if (Window.isFree(Origin->x - 1, Origin->y))
 				{
-					Window.setObjectOrigin("oPlayer", Origin->x - 5, Origin->y);
+					Window.setObjectOrigin("oPlayer", Origin->x - 1, Origin->y);
 				}
-				*/
-				Window.setObjectOrigin("oPlayer", Origin->x - 5, Origin->y);
+				
+				//Window.setObjectOrigin("oPlayer", Origin->x - 5, Origin->y);
 				Window.setObjectSprite("oPlayer", "sWalk");
 				Window.setObjectHorizontalDirection("oPlayer", uFramework::Enums::HorizontalDirection::LEFT);
 

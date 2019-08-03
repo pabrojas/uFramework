@@ -3,14 +3,14 @@
 
 using namespace uFramework;
 
-std::unordered_map<std::string, sf::Sprite*> ImageManager::FILE_MAP = std::unordered_map<std::string, sf::Sprite*>();
+std::unordered_map<std::string, std::shared_ptr<ImageManager::Data>> ImageManager::FILE_MAP = std::unordered_map<std::string, std::shared_ptr<ImageManager::Data>>();
 
-sf::Sprite* ImageManager::load(std::string pathname)
+std::shared_ptr<sf::Sprite> ImageManager::load(std::string pathname)
 {
 	auto it = ImageManager::FILE_MAP.find(pathname);
 	if (it != ImageManager::FILE_MAP.end())
 	{
-		return it->second;
+		return std::make_shared<sf::Sprite>(*(it->second->sprite));
 	}
 
 	sf::Image* image = new sf::Image();
@@ -22,12 +22,19 @@ sf::Sprite* ImageManager::load(std::string pathname)
 
 	sf::Texture* texture = new sf::Texture();
 	texture->loadFromImage(*image);
-
+	
 	sf::Sprite* sprite = new sf::Sprite();
 	sprite->setTexture(*texture);
+	
 
-	ImageManager::FILE_MAP[pathname] = sprite;
-	return sprite;
+	std::shared_ptr<Data> data = std::make_shared<Data>();
+	data->sprite = sprite;
+	data->image = image;
+	data->texture = texture;
+
+	ImageManager::FILE_MAP[pathname] = data;
+
+	return std::make_shared<sf::Sprite>(*sprite);
 }
 
 std::shared_ptr<sf::Sprite> ImageManager::get(std::string pathname)
@@ -38,7 +45,7 @@ std::shared_ptr<sf::Sprite> ImageManager::get(std::string pathname)
 		return nullptr;
 	}
 
-	auto storedSprite = it->second;
+	auto storedSprite = it->second->sprite;
 	auto clonedSprite = std::make_shared<sf::Sprite>(*storedSprite);
 
 	return clonedSprite;

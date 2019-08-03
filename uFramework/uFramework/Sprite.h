@@ -13,10 +13,10 @@ namespace uFramework
 	private:
 		//Fields
 		sf::Time lastTick;
-		int currentIndex;
+		size_t currentIndex;
 		int fps;
 		
-		std::vector<sf::Sprite*> sprites;
+		std::vector<std::shared_ptr<sf::Sprite>> sprites;
 
 	public:
 
@@ -29,7 +29,7 @@ namespace uFramework
 		//Methods
 		void setFps(int fps);
 		bool addFrame(std::string pathname);
-		sf::Sprite* getCurrent();
+		std::shared_ptr<sf::Sprite> getCurrent();
 		void tick(sf::Time time);
 
 	};

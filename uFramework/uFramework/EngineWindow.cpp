@@ -26,9 +26,6 @@ void EngineWindow::privateShow()
 
 	while (window.isOpen())
 	{
-		std::cout << clock.getElapsedTime().asMilliseconds() << " :: ";
-
-
 		sf::Event Event;
 		while (window.pollEvent(Event))
 		{
@@ -55,6 +52,23 @@ void EngineWindow::privateShow()
 			{
 				sfSprite->setOrigin(object->x, object->y);
 				window.draw(*(sfSprite));
+
+				
+				sf::FloatRect rect = sfSprite->getGlobalBounds();
+				Logger::log( std::to_string((int)object->x) + ", " +
+								std::to_string((int)object->y) + " --- " +
+								std::to_string((int)rect.left) + ", " + 
+								std::to_string((int)rect.top) + ", " + 
+								std::to_string((int)rect.width) + ", " + 
+								std::to_string((int)rect.height));
+
+
+				sf::RectangleShape rectangle(sf::Vector2f(rect.width, rect.height));
+				rectangle.setOrigin(rect.left, rect.top);
+				rectangle.setFillColor(sf::Color(100, 250, 50));
+				window.draw(rectangle);
+
+
 			}
 			it++;
 		}

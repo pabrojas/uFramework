@@ -87,11 +87,22 @@ bool Object::isUsingSpriteSize()
 
 std::shared_ptr<Bounds> Object::getBounds()
 {
+	float x = this->x;
+	float y = this->y;
+	float width = this->width;
+	this->height = this->height;
+
 	if (this->usingSpriteSize)
 	{
-		return nullptr;
+		if (this->sprite == nullptr)
+		{
+			return nullptr;
+		}
+		std::shared_ptr<sf::Sprite> sprite = this->sprite->getCurrent();
+		width = sprite->getGlobalBounds().width;
+		height = sprite->getGlobalBounds().height;
 	}
-	return std::make_shared<Bounds>(this->x, this->y, this->width, this->height);
+	return std::make_shared<Bounds>(x, y, width, height);
 }
 
 bool Object::intersects(std::shared_ptr<Bounds> other)
