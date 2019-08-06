@@ -57,6 +57,8 @@ namespace uFramework
 		//Bounds methods
 		bool isUsingSpriteSize();
 		std::shared_ptr<Bounds> getBounds();
+		bool intersects(std::shared_ptr<Object> other);
+		bool intersectsDelta(std::shared_ptr<Object> other, float dx, float dy);
 		bool intersects(std::shared_ptr<Bounds> other);
 		bool contains(std::shared_ptr<Point> point);
 		bool contains(float x, float y);

@@ -28,3 +28,13 @@ void Logger::keyNotFound()
 {
 	std::cout << "Key not found" << std::endl;
 }
+
+void Logger::printBounds(float x1, float y1, float x2, float y2)
+{
+	std::cout << "x(" << x1 << ", " << x2 << ") y(" << y1 << ", " << y2 << ")" << std::endl;
+}
+
+void Logger::printPoint(float x, float y)
+{
+	std::cout << "(" << x << ", " << y << ")" << std::endl;
+}

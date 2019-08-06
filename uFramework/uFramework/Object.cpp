@@ -3,6 +3,7 @@
 #include "SpritePool.h"
 #include "Sprite.h"
 #include "Point.h"
+#include "Logger.h"
 
 using namespace uFramework;
 
@@ -104,6 +105,57 @@ std::shared_ptr<Bounds> Object::getBounds()
 	}
 	return std::make_shared<Bounds>(x, y, width, height);
 }
+
+bool Object::intersects(std::shared_ptr<Object> other)
+{
+	float epsilon = 2.0f;
+	sf::FloatRect r1 = this->sprite->getCurrent()->getGlobalBounds();
+	sf::RectangleShape b1(sf::Vector2f(r1.width, r1.height + 2 * epsilon));
+	b1.setOrigin(-r1.left, -r1.top + epsilon);
+
+	sf::FloatRect r2 = other->sprite->getCurrent()->getGlobalBounds();
+	sf::RectangleShape b2(sf::Vector2f(r2.width, r2.height + 2 * epsilon));
+	b2.setOrigin(-r2.left, -r2.top + epsilon);
+
+	return r1.intersects(r2);
+
+
+
+	/*
+	std::shared_ptr<Bounds> bounds = other->getBounds();
+	return this->intersects(bounds);
+	*/
+}
+
+bool Object::intersectsDelta(std::shared_ptr<Object> other, float dx, float dy)
+{
+	float epsilon = -1.5f;
+	sf::FloatRect r1 = this->sprite->getCurrent()->getGlobalBounds();
+	r1.left -= (dx + epsilon);
+	r1.top -= (dy + epsilon);
+	r1.width += 2 * (dx + epsilon);
+	r1.height += 2 * (dy + epsilon);
+
+
+	sf::FloatRect r2 = other->sprite->getCurrent()->getGlobalBounds();
+	r2.left -= (dx + epsilon);
+	r2.top -= (dy + epsilon);
+	r2.width += 2 * (dx + epsilon);
+	r2.height += 2 * (dy + epsilon);
+
+
+	return r1.intersects(r2);
+}
+
+/*
+bool Object::intersectsDelta(std::shared_ptr<Object> other, float dx, float dy)
+{
+	std::shared_ptr<Bounds> bounds = other->getBounds();
+	bounds->x += dx;
+	bounds->y += dy;
+	return this->intersects(bounds);
+}
+*/
 
 bool Object::intersects(std::shared_ptr<Bounds> other)
 {

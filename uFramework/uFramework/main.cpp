@@ -34,16 +34,28 @@ int main()
 {
 	uFramework::EngineWindow Window;
 	load_sprites(&Window);
-	Window.addIndexedObject("oPlayer", -150, -355, "sIdle");
-	Window.addObject(-100, -386, "sWall");
-	Window.addObject(-600, -386, "sWall");
+	Window.addIndexedObject("oPlayer1", -150, -55, "sIdle");
+	Window.addIndexedObject("oPlayer2", -150, -455, "sIdle");
+
+	Window.addTaggedObject("wall", -160, -285, "sWall");
+
+	//Window.addTaggedObject("wall", -50, -386, "sWall");
+	//Window.addTaggedObject("wall", -600, -386, "sWall");
+	//Window.addIndexedObject("oWall2", -100, -386, "sWall");
+	//Window.addIndexedObject("oWall1",-600, -386, "sWall");
+
+
+	float ySpeed = 0;
+	float gravity = -1;
+
+
 
 	
 	for (int i = 0; i < 1000; i+=64)
 	{
 		for (int j = 0; j < 300; j+=64)
 		{
-			//Window.addObject(-(float)i, -(float)450-j, "sWall");
+			//Window.addTaggedObject("wall",-(float)i, -(float)450-j, "sWall");
 		}
 	}
 	
@@ -53,8 +65,11 @@ int main()
 	bool ToLeft = false;
 	bool ToRight = false;
 
-	while (1)
+	while (!Window.isClosed())
 	{
+		ySpeed = gravity;
+
+
 		ToLeft = false;
 		ToRight = false;
 
@@ -81,43 +96,74 @@ int main()
 			ToRight = true;
 		}
 
-		ToLeft = false;
-		ToRight = true;
+		//ToLeft = false;
+		//ToRight = true;
 
 
-		std::shared_ptr<uFramework::Point> Origin = Window.getObjectOrigin("oPlayer");
-		if (Origin != nullptr)
+
+		std::shared_ptr<uFramework::Point> Origin1 = Window.getObjectOrigin("oPlayer1");
+		std::shared_ptr<uFramework::Point> Origin2 = Window.getObjectOrigin("oPlayer2");
+		if (Origin1 != nullptr)
 		{
 			
+			//Actualizar Eje Y
+			//Window.setObjectOrigin("oPlayer", Origin->x, Origin->y - ySpeed);
+			if (!Window.objectDeltaCollidesTag("oPlayer1", "wall", 0, ySpeed))
+			{
+				Window.setObjectOrigin("oPlayer1", Origin1->x, Origin1->y + ySpeed);
+			}
+			else
+			{
+				//ySpeed = 0;
+				//gravity = 0;
+				//Window.setObjectOrigin("oPlayer", Origin->x, Origin->y + 0.1);
+			}
+
+			if (!Window.objectDeltaCollidesTag("oPlayer2", "wall", 0, -ySpeed))
+			{
+				//Window.setObjectOrigin("oPlayer2", Origin2->x, Origin2->y - ySpeed);
+			}
+			else
+			{
+				//ySpeed = 0;
+				//gravity = 0;
+				//Window.setObjectOrigin("oPlayer", Origin->x, Origin->y + 0.1);
+			}
+
+			
+			
+			
+			//Actualizar Eje X
+			
+			int step = 1;
 
 			if (ToRight)
 			{
-				
-				if (Window.isFree(Origin->x - 1, Origin->y))
+				//if (Window.isFree(Origin->x - 5, Origin->y))
+				//if( !Window.objectCollidesObject("oPlayer", "oWall1") )
+				if (!Window.objectCollidesTag("oPlayer1", "wall"))
 				{
-					Window.setObjectOrigin("oPlayer", Origin->x - 1, Origin->y);
+					Window.setObjectOrigin("oPlayer1", Origin1->x - step, Origin1->y);
 				}
-				
-				//Window.setObjectOrigin("oPlayer", Origin->x - 5, Origin->y);
-				Window.setObjectSprite("oPlayer", "sWalk");
-				Window.setObjectHorizontalDirection("oPlayer", uFramework::Enums::HorizontalDirection::LEFT);
+				Window.setObjectSprite("oPlayer1", "sWalk");
+				Window.setObjectHorizontalDirection("oPlayer1", uFramework::Enums::HorizontalDirection::LEFT);
 
-				//std::cout << "Walk :: ";
 
 
 			}
 			else if (ToLeft)
 			{
-				Window.setObjectOrigin("oPlayer", Origin->x + 5, Origin->y);
-				Window.setObjectSprite("oPlayer", "sWalk");
-				Window.setObjectHorizontalDirection("oPlayer", uFramework::Enums::HorizontalDirection::RIGHT);
-
-				std::cout << "Walk :: ";
+				//if (Window.isFree(Origin->x - step, Origin->y))
+				if (!Window.objectCollidesTag("oPlayer1", "wall"))
+				{
+					Window.setObjectOrigin("oPlayer1", Origin1->x + step, Origin1->y);
+				}
+				Window.setObjectSprite("oPlayer1", "sWalk");
+				Window.setObjectHorizontalDirection("oPlayer1", uFramework::Enums::HorizontalDirection::RIGHT);
 			}
 			else
 			{
-				Window.setObjectSprite("oPlayer", "sIdle");
-				std::cout << "Idle :: ";
+				Window.setObjectSprite("oPlayer1", "sIdle");
 			}
 			
 

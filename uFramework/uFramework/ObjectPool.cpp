@@ -216,3 +216,18 @@ std::shared_ptr<Object> ObjectPool::get(std::string index)
 	return it->second;
 }
 
+std::shared_ptr<std::vector<std::shared_ptr<Object>>> ObjectPool::getTagged(std::string tag)
+{
+	std::shared_ptr<std::vector<std::shared_ptr<Object>>> objects = std::make_shared<std::vector<std::shared_ptr<Object>>>();
+	auto it = this->taggedObjects.find(tag);
+	if (it != this->taggedObjects.end())
+	{
+		for (std::shared_ptr<Object> object : it->second)
+		{
+			objects->push_back(object);
+		}
+	}
+
+	return objects;
+}
+

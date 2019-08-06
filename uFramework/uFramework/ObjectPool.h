@@ -53,6 +53,7 @@ namespace uFramework
 		bool moveOrigin(std::string index, float dx, float dy);
 
 		std::shared_ptr<Object> get(std::string index);
+		std::shared_ptr<std::vector<std::shared_ptr<Object>>> getTagged(std::string tag);
 
 	};
 
