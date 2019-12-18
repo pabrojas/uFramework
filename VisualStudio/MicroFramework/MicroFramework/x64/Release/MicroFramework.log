@@ -1,0 +1,1 @@
+﻿sfml-graphics.lib(sfml-graphics-2.dll) : fatal error LNK1112: tipo de equipo del módulo 'x86' en conflicto con tipo de equipo de destino 'x64'

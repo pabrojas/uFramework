@@ -1,0 +1,32 @@
+﻿  FrameworkWindow.cpp
+     Creando biblioteca C:\Users\Pablo Rojas\Desktop\MicroFramework\Release\MicroFramework.lib y objeto C:\Users\Pablo Rojas\Desktop\MicroFramework\Release\MicroFramework.exp
+  Generando código
+  16 of 1326 functions ( 1.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    30 functions had inline decision re-evaluated but remain unchanged
+  Generación de código finalizada
+  MicroFramework.vcxproj -> C:\Users\Pablo Rojas\Desktop\MicroFramework\Release\MicroFramework.dll
+  C:\Users\Pablo Rojas\Desktop\MicroFramework\Release\MicroFramework.dll
+  C:\Users\Pablo Rojas\Desktop\MicroFramework\Release\MicroFramework.exp
+  C:\Users\Pablo Rojas\Desktop\MicroFramework\Release\MicroFramework.iobj
+  C:\Users\Pablo Rojas\Desktop\MicroFramework\Release\MicroFramework.ipdb
+  C:\Users\Pablo Rojas\Desktop\MicroFramework\Release\MicroFramework.lib
+  C:\Users\Pablo Rojas\Desktop\MicroFramework\Release\MicroFramework.pdb
+  6 archivo(s) copiado(s)
+  C:\Users\Pablo Rojas\Desktop\MicroFramework\Release\MicroFramework.dll
+  1 archivo(s) copiado(s)
+  C:\Users\Pablo Rojas\Desktop\MicroFramework\MicroFramework\uframework.h
+  1 archivo(s) copiado(s)
+  C:\Users\Pablo Rojas\Documents\MicroFramework\bin\MicroFramework.dll
+  C:\Users\Pablo Rojas\Documents\MicroFramework\bin\openal32.dll
+  C:\Users\Pablo Rojas\Documents\MicroFramework\bin\sfml-audio-2.dll
+  C:\Users\Pablo Rojas\Documents\MicroFramework\bin\sfml-audio-d-2.dll
+  C:\Users\Pablo Rojas\Documents\MicroFramework\bin\sfml-graphics-2.dll
+  C:\Users\Pablo Rojas\Documents\MicroFramework\bin\sfml-graphics-d-2.dll
+  C:\Users\Pablo Rojas\Documents\MicroFramework\bin\sfml-network-2.dll
+  C:\Users\Pablo Rojas\Documents\MicroFramework\bin\sfml-network-d-2.dll
+  C:\Users\Pablo Rojas\Documents\MicroFramework\bin\sfml-system-2.dll
+  C:\Users\Pablo Rojas\Documents\MicroFramework\bin\sfml-system-d-2.dll
+  C:\Users\Pablo Rojas\Documents\MicroFramework\bin\sfml-window-2.dll
+  C:\Users\Pablo Rojas\Documents\MicroFramework\bin\sfml-window-d-2.dll
+  12 archivo(s) copiado(s)

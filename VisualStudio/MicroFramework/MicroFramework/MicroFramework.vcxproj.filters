@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Archivos de origen">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Archivos de recursos">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Classes">
+      <UniqueIdentifier>{441e3611-4ee4-46d3-b51a-4ba2269ffc0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Classes">
+      <UniqueIdentifier>{74d18fed-c13c-451e-a15a-a0bfcc6e5d9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Enums">
+      <UniqueIdentifier>{f0da9c9b-7b94-4e8f-973b-b7e82a3684fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Exports">
+      <UniqueIdentifier>{a325f86b-9650-44c7-87b1-562a0b9e6d06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Exports">
+      <UniqueIdentifier>{3d329659-79cb-4aa1-aecc-ccbe592c6c9d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Archivos de encabezado\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardMapper.h">
+      <Filter>Archivos de encabezado\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageManager.h">
+      <Filter>Archivos de encabezado\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Direction.h">
+      <Filter>Archivos de encabezado\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Archivos de encabezado\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Bounds.h">
+      <Filter>Archivos de encabezado\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
+      <Filter>Archivos de encabezado\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Archivos de encabezado\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="SpritePool.h">
+      <Filter>Archivos de encabezado\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>Archivos de encabezado\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameworkWindow.h">
+      <Filter>Archivos de encabezado\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="uframework.h">
+      <Filter>Archivos de encabezado\Exports</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Archivos de origen\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardMapper.cpp">
+      <Filter>Archivos de origen\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageManager.cpp">
+      <Filter>Archivos de origen\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Archivos de origen\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Bounds.cpp">
+      <Filter>Archivos de origen\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Point.cpp">
+      <Filter>Archivos de origen\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Archivos de origen\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="SpritePool.cpp">
+      <Filter>Archivos de origen\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPool.cpp">
+      <Filter>Archivos de origen\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameworkWindow.cpp">
+      <Filter>Archivos de origen\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="uframework.cpp">
+      <Filter>Archivos de origen\Exports</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
