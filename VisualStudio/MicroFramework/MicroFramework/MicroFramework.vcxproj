@@ -105,10 +105,10 @@
       </Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)Release\*" "C:\Users\Pablo Rojas\Documents\MicroFramework\lib" /y
-xcopy "$(SolutionDir)Release\MicroFramework.dll" "C:\Users\Pablo Rojas\Documents\MicroFramework\bin" /y
-xcopy "$(SolutionDir)MicroFramework\uframework.h" "C:\Users\Pablo Rojas\Documents\MicroFramework\include" /y
-xcopy "C:\Users\Pablo Rojas\Documents\MicroFramework\bin" "$(SolutionDir)../../CodeBlocks/uFTest" /y</Command>
+      <Command>xcopy "$(SolutionDir)Release\*" "$(SolutionDir)..\..\Libreria\lib\" /y
+xcopy "$(SolutionDir)Release\MicroFramework.dll" "$(SolutionDir)..\..\Libreria\bin\" /y
+xcopy "$(SolutionDir)MicroFramework\uframework.h" "$(SolutionDir)..\..\Libreria\include\" /y
+xcopy "$(SolutionDir)..\..\Libreria\bin\*" "$(SolutionDir)../../CodeBlocks/uFTest\" /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -134,10 +134,10 @@ xcopy "C:\Users\Pablo Rojas\Documents\MicroFramework\bin" "$(SolutionDir)../../C
       </Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)Release\*" "C:\Users\Pablo Rojas\Documents\MicroFramework\lib" /y
-xcopy "$(SolutionDir)Release\MicroFramework.dll" "C:\Users\Pablo Rojas\Documents\MicroFramework\bin" /y
-xcopy "$(SolutionDir)MicroFramework\uframework.h" "C:\Users\Pablo Rojas\Documents\MicroFramework\include" /y
-xcopy "C:\Users\Pablo Rojas\Documents\MicroFramework\bin" "$(SolutionDir)../../CodeBlocks/uFTest" /y</Command>
+      <Command>xcopy "$(SolutionDir)Release\*" "$(SolutionDir)..\..\Libreria\lib\" /y
+xcopy "$(SolutionDir)Release\MicroFramework.dll" "$(SolutionDir)..\..\Libreria\bin\" /y
+xcopy "$(SolutionDir)MicroFramework\uframework.h" "$(SolutionDir)..\..\Libreria\include\" /y
+xcopy "$(SolutionDir)..\..\Libreria\bin\*" "$(SolutionDir)../../CodeBlocks/uFTest\" /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -167,10 +167,10 @@ xcopy "C:\Users\Pablo Rojas\Documents\MicroFramework\bin" "$(SolutionDir)../../C
       </Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)Release\*" "C:\Users\Pablo Rojas\Documents\MicroFramework\lib" /y
-xcopy "$(SolutionDir)Release\MicroFramework.dll" "C:\Users\Pablo Rojas\Documents\MicroFramework\bin" /y
-xcopy "$(SolutionDir)MicroFramework\uframework.h" "C:\Users\Pablo Rojas\Documents\MicroFramework\include" /y
-xcopy "C:\Users\Pablo Rojas\Documents\MicroFramework\bin" "$(SolutionDir)../../CodeBlocks/uFTest" /y</Command>
+      <Command>xcopy "$(SolutionDir)Release\*" "$(SolutionDir)..\..\Libreria\lib\" /y
+xcopy "$(SolutionDir)Release\MicroFramework.dll" "$(SolutionDir)..\..\Libreria\bin\" /y
+xcopy "$(SolutionDir)MicroFramework\uframework.h" "$(SolutionDir)..\..\Libreria\include\" /y
+xcopy "$(SolutionDir)..\..\Libreria\bin\*" "$(SolutionDir)../../CodeBlocks/uFTest\" /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -200,10 +200,10 @@ xcopy "C:\Users\Pablo Rojas\Documents\MicroFramework\bin" "$(SolutionDir)../../C
       </Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)Release\*" "C:\Users\Pablo Rojas\Documents\MicroFramework\lib" /y
-xcopy "$(SolutionDir)Release\MicroFramework.dll" "C:\Users\Pablo Rojas\Documents\MicroFramework\bin" /y
-xcopy "$(SolutionDir)MicroFramework\uframework.h" "C:\Users\Pablo Rojas\Documents\MicroFramework\include" /y
-xcopy "C:\Users\Pablo Rojas\Documents\MicroFramework\bin" "$(SolutionDir)../../CodeBlocks/uFTest" /y</Command>
+      <Command>xcopy "$(SolutionDir)Release\*" "$(SolutionDir)..\..\Libreria\lib\" /y
+xcopy "$(SolutionDir)Release\MicroFramework.dll" "$(SolutionDir)..\..\Libreria\bin\" /y
+xcopy "$(SolutionDir)MicroFramework\uframework.h" "$(SolutionDir)..\..\Libreria\include\" /y
+xcopy "$(SolutionDir)..\..\Libreria\bin\*" "$(SolutionDir)../../CodeBlocks/uFTest\" /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
