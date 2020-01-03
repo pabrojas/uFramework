@@ -1,21 +1,33 @@
-﻿  FrameworkWindow.cpp
-     Creando biblioteca C:\Users\Pablo Rojas\Desktop\MicroFramework\Release\MicroFramework.lib y objeto C:\Users\Pablo Rojas\Desktop\MicroFramework\Release\MicroFramework.exp
+﻿  pch.cpp
+  Bounds.cpp
+  dllmain.cpp
+  FrameworkWindow.cpp
+  ImageManager.cpp
+  KeyboardMapper.cpp
+  Logger.cpp
+  Object.cpp
+  ObjectPool.cpp
+  Point.cpp
+  Sprite.cpp
+  SpritePool.cpp
+  uframework.cpp
+     Creando biblioteca D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.lib y objeto D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.exp
   Generando código
-  16 of 1326 functions ( 1.2%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    30 functions had inline decision re-evaluated but remain unchanged
+  1314 of 1326 functions (99.1%) were compiled, the rest were copied from previous compilation.
+    10 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Generación de código finalizada
-  MicroFramework.vcxproj -> C:\Users\Pablo Rojas\Desktop\MicroFramework\Release\MicroFramework.dll
-  C:\Users\Pablo Rojas\Desktop\MicroFramework\Release\MicroFramework.dll
-  C:\Users\Pablo Rojas\Desktop\MicroFramework\Release\MicroFramework.exp
-  C:\Users\Pablo Rojas\Desktop\MicroFramework\Release\MicroFramework.iobj
-  C:\Users\Pablo Rojas\Desktop\MicroFramework\Release\MicroFramework.ipdb
-  C:\Users\Pablo Rojas\Desktop\MicroFramework\Release\MicroFramework.lib
-  C:\Users\Pablo Rojas\Desktop\MicroFramework\Release\MicroFramework.pdb
+  MicroFramework.vcxproj -> D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.dll
+  D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.dll
+  D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.exp
+  D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.iobj
+  D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.ipdb
+  D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.lib
+  D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.pdb
   6 archivo(s) copiado(s)
-  C:\Users\Pablo Rojas\Desktop\MicroFramework\Release\MicroFramework.dll
+  D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.dll
   1 archivo(s) copiado(s)
-  C:\Users\Pablo Rojas\Desktop\MicroFramework\MicroFramework\uframework.h
+  D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\MicroFramework\uframework.h
   1 archivo(s) copiado(s)
   C:\Users\Pablo Rojas\Documents\MicroFramework\bin\MicroFramework.dll
   C:\Users\Pablo Rojas\Documents\MicroFramework\bin\openal32.dll
