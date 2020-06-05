@@ -62,6 +62,10 @@ public:
 	std::shared_ptr<Object> get(std::string index);
 	std::vector<std::shared_ptr<Object>> getTagged(std::string tag);
 
+	void eraseAll();
+	bool eraseByIndex(std::string index);
+	void eraseByTag(std::string index);
+
 	//Log
 	void printLog();
 

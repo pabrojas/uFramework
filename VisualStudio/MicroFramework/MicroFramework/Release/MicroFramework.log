@@ -14,7 +14,9 @@
      Creando biblioteca D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.lib y objeto D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.exp
   Generando código
   Previous IPDB not found, fall back to full compilation.
-  All 1326 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\MicroFramework\uframework.cpp(145): warning C4715: 'erase_by_index': no todas las rutas de acceso de control devuelven un valor
+D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\MicroFramework\uframework.cpp(150): warning C4715: 'erase_by_tag': no todas las rutas de acceso de control devuelven un valor
+  All 1348 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Generación de código finalizada
   MicroFramework.vcxproj -> D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.dll
   D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.dll

@@ -71,24 +71,24 @@ void FrameworkWindow::privateShow()
 		style = sf::Style::Fullscreen;
 	}
 
-	sf::RenderWindow window(sf::VideoMode(this->width, this->height), this->title, style);
+	this->window = new sf::RenderWindow(sf::VideoMode(this->width, this->height), this->title, style);
 
-	while (window.isOpen())
+	while (window->isOpen())
 	{
 		this->resourcesMutex.lock();
 
 		sf::Event Event;
-		while (window.pollEvent(Event))
+		while (window->pollEvent(Event))
 		{
 			if (Event.type == sf::Event::Closed)
 			{
-				window.close();
+				window->close();
 				this->closed = true;
 			}
 
 		}
 
-		window.clear(this->backgroundColor);
+		window->clear(this->backgroundColor);
 
 		auto it = this->objects->begin();
 		auto end = this->objects->end();
@@ -120,14 +120,14 @@ void FrameworkWindow::privateShow()
 					sfSprite->setOrigin(-object->x/sw, -object->y/sh);
 				}
 
-				window.draw(*(sfSprite));
+				window->draw(*(sfSprite));
 			}
 			it++;
 		}
 
 		this->resourcesMutex.unlock();
-		window.display();
-		window.setFramerateLimit(60);
+		window->display();
+		window->setFramerateLimit(60);
 	}
 }
 
@@ -405,12 +405,87 @@ float FrameworkWindow::getGamepadAxisValue(int GamepadId, int AxisId)
 	return 0;
 }
 
+//Erasing functions
+void FrameworkWindow::eraseAll()
+{
+	this->resourcesMutex.lock();
+	this->objects->eraseAll();
+	this->resourcesMutex.unlock();
+}
+
+bool FrameworkWindow::eraseByIndex(std::string index)
+{
+	this->resourcesMutex.lock();
+	bool returnValue = this->objects->eraseByIndex(index);
+	this->resourcesMutex.unlock();
+
+	return returnValue;
+}
+
+void FrameworkWindow::eraseByTag(std::string tag)
+{
+	this->resourcesMutex.lock();
+	this->objects->eraseByTag(tag);
+	this->resourcesMutex.unlock();
+}
+
+
+
 //Keyboard 
 bool FrameworkWindow::isKeyPressed(std::string KeyName)
 {
 	sf::Keyboard::Key Key = KeyboardMapper::get(KeyName);
 	return sf::Keyboard::isKeyPressed(Key);
 }
+
+//Mouse
+sf::Vector2i FrameworkWindow::getMouseLocation()
+{
+	if (this->window == nullptr)
+	{
+		return sf::Vector2i(0, 0);
+	}
+	return sf::Mouse::getPosition(*this->window);
+}
+
+bool FrameworkWindow::isMouseButtonPressed(std::string button)
+{
+	if (this->window == nullptr)
+	{
+		return false;
+	}
+
+	sf::Vector2i mouse = sf::Mouse::getPosition(*this->window);
+	if( mouse.x < 0 || mouse.y < 0 || mouse.x > this->width || mouse.y > height )
+	{
+		return false;
+	}
+
+	if (button.compare("left") == 0)
+	{
+		return sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
+	}
+	else if (button.compare("right") == 0)
+	{
+		return sf::Mouse::isButtonPressed(sf::Mouse::Button::Right);
+	}
+	else if (button.compare("middle") == 0)
+	{
+		return sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle);
+	}
+	else if (button.compare("xbutton1") == 0)
+	{
+		return sf::Mouse::isButtonPressed(sf::Mouse::Button::XButton1);
+	}
+	else if (button.compare("xbutton2") == 0)
+	{
+		return sf::Mouse::isButtonPressed(sf::Mouse::Button::XButton2);
+	}
+	
+	return false;
+}
+
+
 
 //Log
 void FrameworkWindow::printLog()

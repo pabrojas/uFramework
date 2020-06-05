@@ -24,6 +24,9 @@ private:
 	std::string title;
 	sf::Color backgroundColor;
 
+	sf::RenderWindow* window;
+
+
 	sf::Mutex resourcesMutex;
 	std::shared_ptr<ObjectPool> objects;
 	int lastUsedIndex;
@@ -76,10 +79,10 @@ public:
 	void setTaggedObjectSize(std::string ObjectIndex, float width, float height);
 
 	
-
-
-
-
+	//Erasing methods
+	void eraseAll();
+	void eraseByTag(std::string tag);
+	bool eraseByIndex(std::string index);
 
 
 	void setObjectHorizontalDirection(std::string ObjectIndex, Direction::Horizontal hDirection);
@@ -103,6 +106,10 @@ public:
 
 	//Keyboard 
 	bool isKeyPressed(std::string KeyName);
+
+	//Mouse
+	sf::Vector2i getMouseLocation();
+	bool isMouseButtonPressed(std::string button);
 
 	//Log
 	void printLog();

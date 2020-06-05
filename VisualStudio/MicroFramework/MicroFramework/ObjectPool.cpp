@@ -346,6 +346,45 @@ bool ObjectPool::setIndexedObjectTag(std::string index, std::string tag)
 }
 
 
+void ObjectPool::eraseAll()
+{
+	this->indexedObjects.clear();
+	this->taggedObjects.clear();
+}
+
+
+/////////////////////////////////////////
+/////// IMPORTANTE: REVISAR 
+/////////////////////////////////////////
+/// Nota: Claudia lo resolverá (a ella se le ocurrió esta barabaridad)
+/////////////////////////////////////////
+bool ObjectPool::eraseByIndex(std::string index)
+{
+	auto removedObject = this->indexedObjects.find(index);
+	if (removedObject == this->indexedObjects.end())
+	{
+		return false;
+	}
+
+	this->indexedObjects.erase(index);
+
+	//indexed objects can also have tags 
+	// bool set_indexed_object_tag(char* index, char* tag);
+	//there is no relation between tag and index
+	//we need to remove by reference
+
+	return true;
+}
+
+void ObjectPool::eraseByTag(std::string tag)
+{
+	this->taggedObjects.erase(tag);
+}
+
+
+
+
+
 void ObjectPool::printLog()
 {
 	Logger::log("----------------------Begin Log---------------------------");

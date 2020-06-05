@@ -16,6 +16,7 @@ void initialize(char* title, int width, int height, bool fullscreen)
 	window.initializeSize(width, height);
 	window.initializeScreenMode(fullscreen);
 	window.launch();
+	Sleep(1000);
 }
 
 void set_background_color(int red, int green, int blue)
@@ -131,6 +132,36 @@ bool is_gamepad_button_pressed(int gamepad_id, int button_id)
 float get_gamepad_axis_value(int gamepad_id, int axis_id)
 {
 	return window.getGamepadAxisValue(gamepad_id, axis_id);
+}
+
+void erase_all()
+{
+	window.eraseAll();
+}
+
+bool erase_by_index(char* index)
+{
+	window.eraseByIndex(std::string(index));
+}
+
+bool erase_by_tag(char* tag)
+{
+	window.eraseByTag(std::string(tag));
+}
+
+mouse_location get_mouse_location()
+{
+	sf::Vector2i location = window.getMouseLocation();
+	mouse_location mouse;
+	mouse.x = location.x;
+	mouse.y = location.y;
+
+	return mouse;
+}
+
+bool is_mouse_button_pressed(char* name)
+{
+	return window.isMouseButtonPressed(std::string(name));
 }
 
 void print_log()
