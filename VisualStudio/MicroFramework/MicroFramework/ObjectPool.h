@@ -20,6 +20,8 @@ private:
 	std::unordered_map<std::string, std::shared_ptr<Object>> indexedObjects;
 	std::unordered_map<std::string, std::vector<std::shared_ptr<Object>>> taggedObjects;
 
+	std::vector<std::shared_ptr<Object>> toPaintObjects;
+
 	//Methods
 	std::string createUndefinedIndex();
 
@@ -30,8 +32,8 @@ public:
 	ObjectPool();
 
 	//Iterators
-	std::unordered_map<std::string, std::shared_ptr<Object>>::iterator begin();
-	std::unordered_map<std::string, std::shared_ptr<Object>>::iterator end();
+	std::vector<std::shared_ptr<Object>>::iterator begin();
+	std::vector<std::shared_ptr<Object>>::iterator end();
 
 	//Methods
 	void addObject(float x, float y, std::string spriteIndex);

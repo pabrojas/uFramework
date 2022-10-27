@@ -19,14 +19,14 @@ std::string ObjectPool::createUndefinedIndex()
 	return ObjectPool::UNDEFINED_INDEX + std::to_string(this->undefinedIndexCounter);
 }
 
-std::unordered_map<std::string, std::shared_ptr<Object>>::iterator ObjectPool::begin()
+std::vector<std::shared_ptr<Object>>::iterator ObjectPool::begin()
 {
-	return this->indexedObjects.begin();
+	return this->toPaintObjects.begin();
 }
 
-std::unordered_map<std::string, std::shared_ptr<Object>>::iterator ObjectPool::end()
+std::vector<std::shared_ptr<Object>>::iterator ObjectPool::end()
 {
-	return this->indexedObjects.end();
+	return this->toPaintObjects.end();
 }
 
 void ObjectPool::addObject(float x, float y, std::string spriteIndex)
@@ -35,6 +35,7 @@ void ObjectPool::addObject(float x, float y, std::string spriteIndex)
 	object->setSprite(spriteIndex);
 	std::string index = this->createUndefinedIndex();
 	this->indexedObjects[index] = object;
+	this->toPaintObjects.push_back(object);
 }
 
 void ObjectPool::addObject(float x, float y, float w, float h, std::string spriteIndex)
@@ -43,12 +44,13 @@ void ObjectPool::addObject(float x, float y, float w, float h, std::string sprit
 	object->setSprite(spriteIndex);
 	std::string index = this->createUndefinedIndex();
 	this->indexedObjects[index] = object;
+	this->toPaintObjects.push_back(object);
 }
 
 bool ObjectPool::addIndexedObject(std::string index, float x, float y, std::string spriteIndex)
 {
 	auto it = this->indexedObjects.find(index);
-	if (it != this->end())
+	if (it != this->indexedObjects.end())
 	{
 		return false;
 	}
@@ -56,6 +58,7 @@ bool ObjectPool::addIndexedObject(std::string index, float x, float y, std::stri
 	std::shared_ptr<Object> object = std::make_shared<Object>(x, y);
 	object->setSprite(spriteIndex);
 	this->indexedObjects[index] = object;
+	this->toPaintObjects.push_back(object);
 
 	return true;
 }
@@ -71,6 +74,7 @@ bool ObjectPool::addIndexedObject(std::string index, float x, float y, float w, 
 	std::shared_ptr<Object> object = std::make_shared<Object>(x, y, w, h);
 	object->setSprite(spriteIndex);
 	this->indexedObjects[index] = object;
+	this->toPaintObjects.push_back(object);
 
 	return true;
 }
@@ -93,6 +97,7 @@ void ObjectPool::addTaggedObject(std::string tag, float x, float y, std::string 
 		objects.push_back(object);
 		this->taggedObjects[tag] = objects;
 	}
+	this->toPaintObjects.push_back(object);
 }
 
 void ObjectPool::addTaggedObject(std::string tag, float x, float y, float w, float h, std::string spriteIndex)
@@ -105,16 +110,15 @@ void ObjectPool::addTaggedObject(std::string tag, float x, float y, float w, flo
 	auto it = this->taggedObjects.find(tag);
 	if (it != this->taggedObjects.end())
 	{
-		Logger::log("agregando");
 		it->second.push_back(object);
 	}
 	else
 	{
-		Logger::log("creando");
 		std::vector<std::shared_ptr<Object>> objects;
 		objects.push_back(object);
 		this->taggedObjects[tag] = objects;
 	}
+	this->toPaintObjects.push_back(object);
 }
 
 bool ObjectPool::addIndexedTaggedObject(std::string index, std::string tag, float x, float y, std::string spriteIndex)
@@ -140,6 +144,7 @@ bool ObjectPool::addIndexedTaggedObject(std::string index, std::string tag, floa
 		objects.push_back(object);
 		this->taggedObjects[tag] = objects;
 	}
+	this->toPaintObjects.push_back(object);
 
 	return true;
 }
@@ -167,6 +172,7 @@ bool ObjectPool::addIndexedTaggedObject(std::string index, std::string tag, floa
 		objects.push_back(object);
 		this->taggedObjects[tag] = objects;
 	}
+	this->toPaintObjects.push_back(object);
 
 	return true;
 }
@@ -356,7 +362,7 @@ void ObjectPool::eraseAll()
 /////////////////////////////////////////
 /////// IMPORTANTE: REVISAR 
 /////////////////////////////////////////
-/// Nota: Claudia lo resolverá (a ella se le ocurrió esta barabaridad)
+/// Nota: Claudia lo resolverá (a ella se le ocurrió esta barbaridad)
 /////////////////////////////////////////
 bool ObjectPool::eraseByIndex(std::string index)
 {
@@ -364,6 +370,17 @@ bool ObjectPool::eraseByIndex(std::string index)
 	if (removedObject == this->indexedObjects.end())
 	{
 		return false;
+	}
+
+	std::shared_ptr<Object> object = this->indexedObjects[index];
+	auto it = this->toPaintObjects.begin();
+	while (it != this->toPaintObjects.end())
+	{
+		if (*it == object)
+		{
+			this->toPaintObjects.erase(it);
+			break;
+		}
 	}
 
 	this->indexedObjects.erase(index);

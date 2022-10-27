@@ -95,7 +95,7 @@ void FrameworkWindow::privateShow()
 
 		while (it != end)
 		{
-			auto object = it->second;
+			auto object = *it;
 			auto sprite = object->getSprite();
 
 			sprite->tick(clock.getElapsedTime());
@@ -294,7 +294,7 @@ bool FrameworkWindow::isFree(float x, float y)
 	auto it = this->objects->begin();
 	while (it != this->objects->end())
 	{
-		if (it->second->contains(x, y))
+		if ((*it)->contains(x, y))
 		{
 			return false;
 		}

@@ -11,24 +11,22 @@
   Sprite.cpp
   SpritePool.cpp
   uframework.cpp
-     Creando biblioteca D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.lib y objeto D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.exp
+     Creando biblioteca C:\Users\Pablo Rojas\Desktop\Repositorios\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.lib y objeto C:\Users\Pablo Rojas\Desktop\Repositorios\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.exp
   Generando código
   Previous IPDB not found, fall back to full compilation.
-D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\MicroFramework\uframework.cpp(145): warning C4715: 'erase_by_index': no todas las rutas de acceso de control devuelven un valor
-D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\MicroFramework\uframework.cpp(150): warning C4715: 'erase_by_tag': no todas las rutas de acceso de control devuelven un valor
-  All 1348 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+C:\Users\Pablo Rojas\Desktop\Repositorios\uFramework\VisualStudio\MicroFramework\MicroFramework\uframework.cpp(150): warning C4715: 'erase_by_tag': no todas las rutas de acceso de control devuelven un valor
+C:\Users\Pablo Rojas\Desktop\Repositorios\uFramework\VisualStudio\MicroFramework\MicroFramework\uframework.cpp(145): warning C4715: 'erase_by_index': no todas las rutas de acceso de control devuelven un valor
+  All 1236 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Generación de código finalizada
-  MicroFramework.vcxproj -> D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.dll
-  D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.dll
-  D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.exp
-  D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.iobj
-  D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.ipdb
-  D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.lib
-  D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.pdb
-  6 archivo(s) copiado(s)
-  D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.dll
+  MicroFramework.vcxproj -> C:\Users\Pablo Rojas\Desktop\Repositorios\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.dll
+  C:\Users\Pablo Rojas\Desktop\Repositorios\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.dll
+  C:\Users\Pablo Rojas\Desktop\Repositorios\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.exp
+  C:\Users\Pablo Rojas\Desktop\Repositorios\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.lib
+  C:\Users\Pablo Rojas\Desktop\Repositorios\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.pdb
+  4 archivo(s) copiado(s)
+  C:\Users\Pablo Rojas\Desktop\Repositorios\uFramework\VisualStudio\MicroFramework\Release\MicroFramework.dll
   1 archivo(s) copiado(s)
-  D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\MicroFramework\uframework.h
+  C:\Users\Pablo Rojas\Desktop\Repositorios\uFramework\VisualStudio\MicroFramework\MicroFramework\uframework.h
   1 archivo(s) copiado(s)
-  D:\Universidad de Talca\Desarrollos\uFramework\VisualStudio\MicroFramework\..\..\Libreria\bin\MicroFramework.dll
+  C:\Users\Pablo Rojas\Desktop\Repositorios\uFramework\VisualStudio\MicroFramework\..\..\Libreria\bin\MicroFramework.dll
   1 archivo(s) copiado(s)
